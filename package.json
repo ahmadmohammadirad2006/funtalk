@@ -1,0 +1,21 @@
+{
+  "name": "fun-talk",
+  "version": "1.0.0",
+  "description": "Chat Application",
+  "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadmohammadirad2006/fun-talk.git"
+  },
+  "author": "Ahmad Mohammadirad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadmohammadirad2006/fun-talk/issues"
+  },
+  "homepage": "https://github.com/ahmadmohammadirad2006/fun-talk#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

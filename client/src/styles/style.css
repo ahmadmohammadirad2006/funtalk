@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary text-black font-extrabold font-nunito text-base  min-h-screen;
+  }
+  input,
+  textarea,
+  select {
+    -webkit-appearance: none;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-lightGray rounded-lg;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray rounded-lg;
+  }
+}
+
+@layer components {
+  .heading-normal {
+    @apply text-4xl font-extrabold sm:text-6xl;
+  }
+  .heading-small {
+    @apply text-2xl   lg:text-4xl;
+  }
+  .container-box {
+    @apply bg-white rounded-3xl;
+  }
+  .btn {
+    @apply bg-black text-white rounded-full;
+  }
+
+  .input-group {
+    @apply flex gap-2 items-center sm:gap-4;
+  }
+  .input {
+    @apply bg-lightGray outline-none  placeholder:text-gray placeholder:font-extrabold  rounded-full w-full  p-3  sm:p-6;
+  }
+
+  .select-emoji-container {
+    @apply bg-lightGray flex justify-center items-center w-12 h-12 rounded-full text-2xl sm:text-3xl sm:w-14 sm:h-14;
+  }
+  .select-emoji-container select {
+    @apply bg-[transparent] outline-none overflow-hidden;
+  }
+
+  .users-list {
+    @apply flex gap-5 md:flex-col  md:max-h-[35rem]  md:self-stretch md:overflow-auto;
+  }
+  .user-item {
+    @apply bg-lightGray rounded-full flex items-center min-w-fit text-xl p-4  gap-4 sm:gap-2 md:text-xl md:p-6;
+  }
+  .user-item .user-item-icon {
+    @apply w-20 hidden;
+  }
+  .user-item .user-item-name {
+    @apply mr-auto;
+  }
+  .user-item .user-item-you {
+    @apply bg-black text-white py-[2px] px-2 rounded-full;
+  }
+
+  .message-area {
+    @apply overflow-y-auto bg-white flex-grow h-96 flex flex-col items-center gap-8 px-2 md:p-10 md:rounded-3xl;
+  }
+  .message {
+    @apply flex gap-2 items-end;
+  }
+  .message-info {
+    @apply flex flex-col items-start gap-1;
+  }
+  .message .message-sender {
+    @apply text-[12px] text-gray;
+  }
+  .message .message-body {
+    @apply bg-lightGray p-2 max-w-40 break-words hyphens-manual md:max-w-72 md:p-6;
+  }
+  .message .message-time {
+    @apply text-[10px] text-gray self-end;
+  }
+  .message--left {
+    @apply self-start;
+  }
+  .message--left .message-body {
+    @apply rounded-xl rounded-bl-none;
+  }
+  .message--left .message-sender-emoji {
+    @apply order-1;
+  }
+  .message--left .message-info {
+    @apply order-2;
+  }
+  .message--right {
+    @apply self-end;
+  }
+  .message--right .message-body {
+    @apply rounded-xl rounded-br-none;
+  }
+  .message--right .message-sender-emoji {
+    @apply order-2;
+  }
+  .message--right .message-info {
+    @apply order-1;
+  }
+  .message--bot {
+    @apply bg-lightGray items-center rounded-xl pr-3 py-1;
+  }
+  .message--bot .funtalk-bot-icon {
+    @apply w-16;
+  }
+  .message--bot .message-info {
+    @apply gap-1;
+  }
+  .message--bot .message-body {
+    @apply p-0 max-w-60 md:max-w-96;
+  }
+
+  .send-message-container {
+    @apply flex bg-white rounded-full mx-5 text-xl md:m-0 md:text-2xl;
+  }
+  .send-message-container input {
+    @apply rounded-l-full outline-none flex-grow py-3 px-6 w-full;
+  }
+}

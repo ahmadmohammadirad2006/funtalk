@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funtalk | Join</title>
+    <link rel="icon" href="/logo-icon.svg" sizes="any" type="image/svg+xml" />
+  </head>
+  <body class="flex flex-col items-center gap-[10vh] text-2xl sm:text-3xl">
+    <!-- LOGO -->
+    <div class="p-5 sm:self-start">
+      <img src="/logo.svg" alt="Funtalk Logo" class="w-72" />
+    </div>
+
+    <!-- JOIN FORM & HEADING -->
+    <main class="flex flex-col items-center justify-center gap-8 p-5">
+      <!-- HEADING -->
+      <h2 class="heading-normal text-white">Join a room</h2>
+
+      <!-- JOIN FORM -->
+      <form
+        action=""
+        class="container-box flex flex-col text-black gap-5 p-5 sm:gap-8 sm:p-8"
+      >
+        <!-- NAME INPUT -->
+        <div class="input-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="e.g. Alex" class="input" />
+        </div>
+
+        <!-- ROOM NAME INPUT -->
+        <div class="input-group">
+          <label for="name">Room:</label>
+          <input type="text" id="name" class="input" value="Global" />
+        </div>
+
+        <!-- EMOJI SELECT AND JOIN BUTTON -->
+        <div class="flex gap-5 flex-row items-center">
+          <!-- EMOJI SELECT -->
+          <div class="select-emoji-container">
+            <select name="" id="">
+              <option value="😊">😊</option>
+              <option value="😁">😁</option>
+              <option value="😎">😎</option>
+              <option value="😏">😏</option>
+              <option value="😄">😄</option>
+              <option value="😚">😚</option>
+              <option value="😌">😌</option>
+            </select>
+          </div>
+          <!-- JOIN BUTTON -->
+          <button class="btn flex-grow p-3 sm:p-6" type="submit">
+            Let's go🔥
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

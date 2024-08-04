@@ -1,0 +1,25 @@
+{
+  "name": "fun-talk-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "postcss": "^8.4.40",
+    "postcss-loader": "^8.1.1",
+    "postcss-preset-env": "^9.6.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.4.7",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "author": "Ahmad Mohammadirad",
+  "license": "ISC"
+}
