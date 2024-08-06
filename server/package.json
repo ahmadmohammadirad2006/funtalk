@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "set NODE_ENV=production&& nodemon",
+    "start": "set NODE_ENV=production&& node",
     "dev": "nodemon"
   },
   "author": "Ahmad Mohammadirad",
