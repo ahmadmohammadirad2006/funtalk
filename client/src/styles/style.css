@@ -34,7 +34,7 @@
     @apply text-4xl font-extrabold sm:text-6xl;
   }
   .heading-small {
-    @apply text-2xl   lg:text-4xl;
+    @apply text-2xl   lg:text-4xl 2xl:text-5xl;
   }
   .container-box {
     @apply bg-white rounded-3xl;
@@ -61,7 +61,7 @@
     @apply flex gap-5 md:flex-col  md:max-h-[35rem]  md:self-stretch md:overflow-auto;
   }
   .user-item {
-    @apply bg-lightGray rounded-full flex items-center min-w-fit text-xl p-4  gap-4 sm:gap-2 md:text-xl md:p-6;
+    @apply bg-lightGray rounded-full flex items-center min-w-fit text-xl p-4  gap-4 sm:gap-2 md:text-xl md:p-6 xl:text-2xl 2xl:text-3xl xl:min-w-[36rem] xl:p-8;
   }
   .user-item .user-item-icon {
     @apply w-20 hidden;
@@ -74,7 +74,7 @@
   }
 
   .message-area {
-    @apply overflow-y-auto bg-white flex-grow h-96 flex flex-col items-center gap-8 px-2 md:p-10 md:rounded-3xl;
+    @apply overflow-y-auto bg-white flex-grow h-96 flex flex-col items-center gap-8 px-2 md:p-10 md:rounded-3xl xl:gap-16;
   }
   .message {
     @apply flex gap-2 items-end;
@@ -83,13 +83,13 @@
     @apply flex flex-col items-start gap-1;
   }
   .message .message-sender {
-    @apply text-[12px] text-gray;
+    @apply text-[12px] text-gray lg:text-xl;
   }
   .message .message-body {
-    @apply bg-lightGray p-2 max-w-40 break-words hyphens-manual md:max-w-72 md:p-6;
+    @apply bg-lightGray p-2 max-w-40 break-words hyphens-manual md:max-w-72 md:p-6 xl:max-w-96;
   }
   .message .message-time {
-    @apply text-[10px] text-gray self-end;
+    @apply text-[.8rem] text-gray self-end lg:text-lg;
   }
   .message--left {
     @apply self-start;
@@ -116,7 +116,7 @@
     @apply order-1;
   }
   .message--bot {
-    @apply bg-lightGray items-center rounded-xl pr-3 py-1;
+    @apply bg-lightGray items-center rounded-xl pr-3 py-1 lg:py-2 lg:pr-5 lg:pl-2;
   }
   .message--bot .funtalk-bot-icon {
     @apply w-16;
@@ -129,9 +129,9 @@
   }
 
   .send-message-container {
-    @apply flex bg-white rounded-full mx-5 text-xl md:m-0 md:text-2xl;
+    @apply flex bg-white rounded-full mx-5 text-xl md:m-0 lg:text-2xl 2xl:text-3xl;
   }
   .send-message-container input {
-    @apply rounded-l-full outline-none flex-grow py-3 px-6 w-full;
+    @apply rounded-l-full outline-none flex-grow py-3 px-6 w-full md:py-4 md:px-8;
   }
 }
