@@ -4,12 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "set NODE_ENV=production&& nodemon",
     "dev": "nodemon"
   },
   "author": "Ahmad Mohammadirad",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
