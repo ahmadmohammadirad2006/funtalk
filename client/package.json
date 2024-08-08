@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start" : "webpack --config ./webpack.config.prod.js",
     "dev": "webpack"
   },
   "devDependencies": {
