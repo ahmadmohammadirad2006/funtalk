@@ -1,8 +1,11 @@
 const express = require('express');
 
 const roomController = require('../controllers/roomController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
+
+router.use(authController.protect);
 
 router
   .route('/')
@@ -11,7 +14,7 @@ router
 router
   .route('/:id')
   .get(roomController.getRoom)
-  .patch(roomController.updateRoom)
-  .delete(roomController.deleteRoom);
+  .patch(authController.restrictTo('admin'), roomController.updateRoom)
+  .delete(authController.restrictTo('admin'), roomController.deleteRoom);
 
 module.exports = router;

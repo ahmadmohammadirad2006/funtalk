@@ -7,6 +7,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const roomRouter = require('./routes/roomRouter');
 const userRouter = require('./routes/userRouter');
+const messageRouter = require('./routes/messageRouter');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // Routers
 app.use('/api/rooms', roomRouter);
 app.use('/api/users', userRouter);
+app.use('/api/messages', messageRouter);
 
 // Pages
 app.get('/rooms/roomname', (req, res, next) => {
