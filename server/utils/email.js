@@ -1,26 +1,54 @@
 const nodemailer = require('nodemailer');
 
-// Create a transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+module.exports = class Email {
+  constructor(user, url) {
+    this.to = user.email;
+    this.name = user.name;
+    this.url = url;
+    this.from = `Ahmad Mohammadirad <${process.env.EMAIL_FROM}>`;
+  }
 
-const sendEmail = async function (options) {
-  // Define the email options
-  const mailOptions = {
-    from: `Ahmad Mohammadirad <${process.env.EMAIL_FROM}>`,
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-  };
+  newTransport() {
+    if (process.env.NODE_ENV === 'production') {
+      // send grid
+      return 1;
+    }
 
-  // Actually send the email
-  await transporter.sendMail(mailOptions);
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+  }
+
+  // Send actual email
+  async send(subject, text) {
+    // Define email options
+    const mailOptions = {
+      from: this.from,
+      to: this.to,
+      subject,
+      text,
+    };
+
+    // Create a transport and send email
+    await this.newTransport().sendMail(mailOptions);
+  }
+
+  async sendWelcome() {
+    await this.send(
+      'Welcome to The Funtalk Family!',
+      `Hi, Dear ${this.name}\nWe are glad you joined our family, hope you have a good time🤗.`
+    );
+  }
+
+  async sendPasswordReset() {
+    await this.send(
+      'Your password reset token (valid for 10 only minutes)',
+      `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${this.url}\nIf you didn't forget your password, please ignore this email!`
+    );
+  }
 };
-
-module.exports = sendEmail;
