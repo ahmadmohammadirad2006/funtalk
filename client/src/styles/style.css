@@ -41,7 +41,7 @@
 @layer components {
   /* BUTTON COMPONENT */
   .btn {
-    @apply capitalize outline-none px-[1.4em] py-[.6em] rounded-full font-bold transition-all duration-300 text-center hover:-translate-y-2 hover:scale-105 text-nowrap;
+    @apply capitalize outline-none px-[1.4em] py-[.6em] rounded-full font-bold transition-all duration-300 text-center hover:-translate-y-1 hover:scale-105 text-nowrap;
   }
   .btn--primary {
     @apply bg-black text-white relative overflow-hidden;
