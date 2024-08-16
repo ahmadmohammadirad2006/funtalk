@@ -2,21 +2,17 @@
 module.exports = {
   content: ['./dist/*.html'],
   theme: {
-    extend: {
-      backgroundImage: {
-        'background-pattern': "url('./src/assets/images/background.jpg')",
-      },
-    },
     colors: {
       primary: '#8e44ad',
       white: '#fff',
       black: '#000',
       lightGray: '#D9D9D9',
+      skyBlue: '#0984E3',
       gray: '#525252',
-      red: '#e74c3c',
+      red: '#E74C3C',
     },
     fontFamily: {
-      nunito: ['Nunito', 'sans-serif'],
+      inter: ['Inter', 'sans-serif'],
     },
   },
   plugins: [],
