@@ -5,10 +5,10 @@
 
 @layer base {
   html {
-    @apply text-[85%] sm:text-[115%] md:text-[130%] xl:text-[150%];
+    @apply text-[85%] sm:text-[115%] md:text-[125%] xl:text-[140%] 2xl:text-[150%];
   }
   body {
-    @apply bg-primary text-black font-inter text-base  min-h-screen overflow-x-hidden;
+    @apply bg-primary text-black font-inter text-base font-semibold  min-h-screen overflow-x-hidden;
   }
   input,
   textarea,
@@ -62,5 +62,33 @@
   .link:link,
   .link:visited {
     @apply underline text-skyBlue hover:no-underline;
+  }
+
+  /* INPUT GROUP */
+  .input-group {
+    @apply flex flex-col gap-2 md:gap-1;
+  }
+
+  .input-group input {
+    @apply bg-lightGray px-[1em] py-[.7em] rounded-full  placeholder:text-gray border-2 border-[transparent] outline-none;
+  }
+  .input-group .input-group-error-message {
+    @apply text-red text-sm font-semibold hidden md:text-xs;
+  }
+
+  .input-group--error input {
+    @apply !border-2 !border-red;
+  }
+  .input-group--error .input-group-error-message {
+    @apply !block;
+  }
+
+  /* SELECT EMOJI  */
+  .select-emoji {
+    @apply flex items-center gap-2;
+  }
+
+  .select-emoji select {
+    @apply bg-lightGray text-lg  py-1 px-[.3rem] lg:text-base  rounded-full outline-none hover:opacity-70 transition-all cursor-pointer;
   }
 }

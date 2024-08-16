@@ -43,14 +43,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'Webpack App',
-      filename: 'room.html',
-      template: './src/room.html',
-      publicPath: '/',
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Webpack App',
-      filename: 'not-found.html',
-      template: './src/not-found.html',
+      filename: 'sign-up.html',
+      template: './src/sign-up.html',
       publicPath: '/',
     }),
   ],
