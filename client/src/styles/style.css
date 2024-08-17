@@ -91,4 +91,49 @@
   .select-emoji select {
     @apply bg-lightGray text-lg  py-1 px-[.3rem] lg:text-base  rounded-full outline-none hover:opacity-70 transition-all cursor-pointer;
   }
+
+  /* INPUT GROUP WITH CLUNG BUTTON */
+  .input-group-clung-button {
+    @apply flex gap-2 rounded-full;
+  }
+  .input-group-clung-button input {
+    @apply flex-grow bg-[transparent] outline-none w-3/4 placeholder:text-gray;
+  }
+  .input-group-clung-button--searchbar {
+    @apply bg-lightGray p-2 pl-5 text-lg;
+  }
+  .input-group-clung-button--searchbar button {
+    @apply flex items-center justify-center  p-3 hover:opacity-75 rounded-full text-xl transition-all active:opacity-65;
+  }
+
+  /* ROOM CARD */
+  .room-card {
+    @apply bg-lightGray rounded-3xl grid grid-cols-2  p-5 gap-5  md:gap-3 xl:grid-cols-3;
+  }
+  .room-card-name {
+    @apply text-3xl font-bold xl:text-2xl;
+  }
+  .room-card-info {
+    @apply flex flex-col gap-2 col-span-2;
+  }
+  .room-card-emoji {
+    @apply justify-self-center self-center col-start-2 row-start-2 text-5xl sm:text-3xl xl:text-5xl xl:col-start-3 xl:row-start-1;
+  }
+  .room-card-users {
+    @apply text-nowrap self-center col-start-1 row-start-2  text-3xl sm:text-xl;
+  }
+  .room-card-join-btn {
+    @apply col-span-2 self-center;
+  }
+
+  /* PAGINATION */
+  .pagination {
+    @apply flex gap-5 text-4xl md:text-2xl;
+  }
+  .paginaiton-page-num {
+    @apply text-4xl md:text-3xl;
+  }
+  .paginaiton-btn {
+    @apply transition-all hover:scale-110;
+  }
 }
