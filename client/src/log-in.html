@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funtalk | Log In</title>
+    <link rel="icon" href="/logo-icon.svg" sizes="any" type="image/svg+xml" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body class="flex flex-col text-lg sm:text-sm gap-40 lg:gap-2">
+    <!-- HEADER: LOGO-->
+    <header class="container-x-padding py-4">
+      <!-- LOGO -->
+      <a href="/">
+        <img src="/logo.svg" class="h-16" alt="Funtalk Logo" />
+      </a>
+    </header>
+
+    <!-- MAIN : HEADING & SIGN UP FORM -->
+    <main class="flex flex-col gap-5 self-center px-2 pb-5">
+      <h1 class="heading-primary text-white self-center">Log In</h1>
+      <form
+        action=""
+        class="bg-white flex flex-col gap-5 p-5 rounded-3xl md:w-80 md:gap-3 md:p-4"
+      >
+        <div class="input-group input-group--error">
+          <input type="text" placeholder="Enter your name" />
+          <span class="input-group-error-message"
+            >Your name must not include any space</span
+          >
+        </div>
+        <div class="input-group input-group--error">
+          <input type="text" placeholder="Enter your email" />
+          <span class="input-group-error-message">Invalid email</span>
+        </div>
+
+        <button class="btn btn--primary flex-grow">Log in ✨</button>
+
+        <p class="self-center mt-2">
+          <a href="" class="link">Don't have an account?</a> Sign Up
+        </p>
+      </form>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container-x-padding py-6 gap-5 bg-white mt-auto">
+      <div class="text-center md:text-start">
+        <p>
+          Designed and Developed by
+          <a class="link" href="">Ahmad Mohammadirad</a>
+        </p>
+        <span>© 2024 Funtalk. All Rights Reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>

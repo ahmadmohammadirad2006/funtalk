@@ -47,5 +47,11 @@ module.exports = {
       template: './src/sign-up.html',
       publicPath: '/',
     }),
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      filename: 'log-in.html',
+      template: './src/log-in.html',
+      publicPath: '/',
+    }),
   ],
 };

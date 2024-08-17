@@ -70,7 +70,7 @@
   }
 
   .input-group input {
-    @apply bg-lightGray px-[1em] py-[.7em] rounded-full  placeholder:text-gray border-2 border-[transparent] outline-none;
+    @apply bg-lightGray px-[1em] py-[.5em] rounded-full  placeholder:text-gray border-2 border-[transparent] outline-none;
   }
   .input-group .input-group-error-message {
     @apply text-red text-sm font-semibold hidden md:text-xs;
