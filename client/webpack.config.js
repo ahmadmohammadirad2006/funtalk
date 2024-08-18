@@ -67,5 +67,11 @@ module.exports = {
       template: './src/rooms.html',
       publicPath: '/',
     }),
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      filename: 'chat.html',
+      template: './src/chat.html',
+      publicPath: '/',
+    }),
   ],
 };

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funtalk</title>
+    <link rel="icon" href="/logo-icon.svg" sizes="any" type="image/svg+xml" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body class="flex flex-col text-lg gap-16 lg:gap-20">
+    <!-- HEADER: LOGO & PROFILE-->
+    <header
+      class="hidden container-x-padding xl:flex justify-between items-center gap-5 py-3"
+    >
+      <!-- LOGO -->
+      <a href="/" class="shrink-0">
+        <img src="/logo.svg" class="h-12" alt="Funtalk Logo" />
+      </a>
+
+      <!-- PROFILE -->
+      <div class="flex gap-3 bg-black text-white p-1 px-2 rounded-full w-44">
+        <a href="/" class="flex gap-2 items-center mr-auto overflow-hidden">
+          <span
+            class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
+            >😎</span
+          >
+          <span class="font-bold text-nowrap">Ahmad</span>
+        </a>
+
+        <button
+          class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
+        >
+          <ion-icon name="log-out-outline"></ion-icon>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex flex-col gap-5 px-0 xl:px-16 xl:flex-row xl:text-xs">
+      <!-- LEFT SECTION: PEOPLE IN THIS ROOM LIST -->
+      <section
+        class="bg-white flex flex-col gap-5 order-2 p-5 overflow-x-auto xl:order-1 xl:overflow-y-auto xl:rounded-3xl xl:gap-8 xl:h-[35rem] xl:w-80"
+      >
+        <h2 class="heading-secondary text-black">People in this room</h2>
+        <ul class="flex gap-5 xl:flex-col xl:overflow-y-auto">
+          <li class="user-item">
+            <span class="user-item-emoji">😎</span>
+            <span class="user-item-name">Ahmad</span>
+            <span class="user-item-you">you</span>
+          </li>
+
+          <li class="user-item">
+            <span class="user-item-emoji">😌</span>
+            <span class="user-item-name">Max</span>
+          </li>
+          <li class="user-item">
+            <span class="user-item-emoji">😌</span>
+            <span class="user-item-name">Max</span>
+          </li>
+          <li class="user-item">
+            <span class="user-item-emoji">😌</span>
+            <span class="user-item-name">Max</span>
+          </li>
+          <li class="user-item">
+            <span class="user-item-emoji">😌</span>
+            <span class="user-item-name">Max</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- RIGHT SECTION: PROFILE & ROOM NAME & LEAVE ROOM BUTTON & MESSAGE AREA & SEND MESSAGE INPUT -->
+      <section
+        class="bg-white p-5 flex flex-col gap-10 h-screen order-1 xl:order-2 xl:flex-grow xl:bg-[transparent] xl:p-0 xl:h-[35rem] xl:gap-5"
+      >
+        <!-- PROFILE & ROOM NAME & LEAVE ROOM BUTTON -->
+        <div class="flex items-center justify-between gap-5">
+          <!-- ROOM NAME & LEAVE ROOM BUTTON -->
+          <div
+            class="bg-lightGray flex items-center rounded-full p-2 flex-grow xl:bg-[transparent] xl:justify-between xl:p-0"
+          >
+            <!-- ROOM NAME -->
+            <span
+              class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:text-white"
+              >Teck talk</span
+            >
+            <button
+              class="btn btn--primary px-4 xl:flex xl:gap-5 xl:px-5 xl:text-lg"
+            >
+              <span class="hidden xl:inline-block">Leave room</span>
+              🚪
+            </button>
+          </div>
+
+          <!-- PROFILE -->
+          <div
+            class="flex xl:hidden gap-3 bg-black text-white p-1 px-2 rounded-full w-44"
+          >
+            <a href="/" class="flex gap-2 items-center mr-auto overflow-hidden">
+              <span
+                class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
+                >😎</span
+              >
+              <span class="font-bold text-nowrap">Ahmad</span>
+            </a>
+
+            <button
+              class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
+            >
+              <ion-icon name="log-out-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <!-- MESSAGE AREA -->
+        <div
+          class="flex flex-col gap-10 flex-grow overflow-y-auto px-2 xl:bg-white xl:p-5 xl:rounded-3xl"
+        >
+          <div class="message message--left">
+            <div class="message-sender-emoji">😎</div>
+            <div class="message-info">
+              <span class="message-sender">Ahmad:</span>
+              <div class="message-body">
+                Hi, guy fsdf sdf sdfds dsfffffffffffds fsdfdsfd fsd fsdfsdfsdf
+                sdf sdf sdfsfs fsdfdsfsdfs! Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Modi maxime tempora, itaque
+              </div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+          <div class="message message--bot">
+            <img
+              src="/logo-icon.svg"
+              class="message-bot-logo"
+              alt="Funtalk Logo"
+            />
+            <div class="message-info">
+              <span class="message-sender">Funtalk bot:</span>
+              <div class="message-body">Ahmad Left the room</div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+          <div class="message message--right">
+            <div class="message-sender-emoji">😎</div>
+            <div class="message-info">
+              <span class="message-sender">Ahmad:</span>
+              <div class="message-body">Hi, guyfdsfsdfs!</div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+          <div class="message message--right">
+            <div class="message-sender-emoji">😎</div>
+            <div class="message-info">
+              <span class="message-sender">Ahmad:</span>
+              <div class="message-body">Hi, Guys!</div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+          <div class="message message--left">
+            <div class="message-sender-emoji">😎</div>
+            <div class="message-info">
+              <span class="message-sender">Ahmad:</span>
+              <div class="message-body">Hi, guyfdsfsdfs!</div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+          <div class="message message--right">
+            <div class="message-sender-emoji">😎</div>
+            <div class="message-info">
+              <span class="message-sender">Ahmad:</span>
+              <div class="message-body">Hi, guyfdsfsdfs!</div>
+              <div class="message-date">Aug. 17, 2025</div>
+            </div>
+          </div>
+        </div>
+        <!-- SEND MESSAGE INPUT -->
+        <div>
+          <div
+            class="input-group-clung-button input-group-clung-button--send-message"
+          >
+            <input type="text" placeholder="Send your message" />
+            <button class="btn btn--primary">send</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container-x-padding py-6 gap-5 bg-white mt-auto">
+      <div class="text-center md:text-start">
+        <p>
+          Designed and Developed by
+          <a class="link" href="">Ahmad Mohammadirad</a>
+        </p>
+        <span>© 2024 Funtalk. All Rights Reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>

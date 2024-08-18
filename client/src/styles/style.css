@@ -41,7 +41,7 @@
 @layer components {
   /* BUTTON COMPONENT */
   .btn {
-    @apply capitalize outline-none px-[1.4em] py-[.6em] rounded-full font-bold transition-all duration-300 text-center hover:-translate-y-1 hover:scale-105 text-nowrap;
+    @apply capitalize outline-none px-[1.4em] py-[.6em] rounded-full font-bold transition-all duration-300 text-center  hover:scale-105 text-nowrap;
   }
   .btn--primary {
     @apply bg-black text-white relative overflow-hidden;
@@ -56,6 +56,9 @@
   /* HEADING COMPONENTS */
   .heading-primary {
     @apply text-5xl font-bold;
+  }
+  .heading-secondary {
+    @apply text-3xl font-bold xl:text-2xl;
   }
 
   /* TEXT LINK */
@@ -94,16 +97,19 @@
 
   /* INPUT GROUP WITH CLUNG BUTTON */
   .input-group-clung-button {
-    @apply flex gap-2 rounded-full;
+    @apply flex gap-2 rounded-full  p-2 pl-5;
   }
   .input-group-clung-button input {
     @apply flex-grow bg-[transparent] outline-none w-3/4 placeholder:text-gray;
   }
   .input-group-clung-button--searchbar {
-    @apply bg-lightGray p-2 pl-5 text-lg;
+    @apply bg-lightGray text-lg;
   }
   .input-group-clung-button--searchbar button {
     @apply flex items-center justify-center  p-3 hover:opacity-75 rounded-full text-xl transition-all active:opacity-65;
+  }
+  .input-group-clung-button--send-message {
+    @apply border-2 border-lightGray bg-white;
   }
 
   /* ROOM CARD */
@@ -135,5 +141,81 @@
   }
   .paginaiton-btn {
     @apply transition-all hover:scale-110;
+  }
+
+  /* MESSAGE */
+  .message {
+    @apply flex gap-2;
+  }
+  .message-sender-emoji {
+    @apply self-end text-xl;
+  }
+  .message-info {
+    @apply flex flex-col gap-1;
+  }
+  .message-sender {
+    @apply text-xs;
+  }
+  .message-body {
+    @apply bg-lightGray p-3 rounded-xl max-w-40 break-words hyphens-auto overflow-hidden xl:max-w-60;
+  }
+  .message-date {
+    @apply text-xs self-end xl:text-[.6rem];
+  }
+
+  .message--left {
+    @apply self-start;
+  }
+  .message--left .message-body {
+    @apply rounded-bl-none;
+  }
+  .message--left .message-info {
+    @apply order-2;
+  }
+  .message--left .message-sender-emoji {
+    @apply order-1;
+  }
+
+  .message--right {
+    @apply self-end;
+  }
+  .message--right .message-body {
+    @apply rounded-br-none;
+  }
+  .message--right .message-info {
+    @apply order-1;
+  }
+  .message--right .message-sender-emoji {
+    @apply order-2;
+  }
+
+  .message--bot {
+    @apply bg-lightGray self-center p-3 pl-1 rounded-xl items-center gap-0 xl:p-2 xl:pl-0;
+  }
+  .message--bot .message-info {
+    @apply !gap-0;
+  }
+  .message--bot .message-body {
+    @apply p-0 max-w-64 xl:max-w-80 capitalize;
+  }
+  .message--bot .message-sender {
+    @apply text-sm;
+  }
+  .message-bot-logo {
+    @apply h-16 xl:h-12;
+  }
+
+  /* USER ITEM */
+  .user-item {
+    @apply bg-lightGray rounded-full flex items-center gap-2  p-5 xl:p-3;
+  }
+  .user-item-emoji {
+    @apply text-3xl xl:text-2xl;
+  }
+  .user-item-name {
+    @apply font-bold text-nowrap text-xl;
+  }
+  .user-item-you {
+    @apply bg-black text-white uppercase text-sm font-bold p-2 rounded-full ml-5 xl:ml-auto xl:text-xs;
   }
 }
