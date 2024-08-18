@@ -71,5 +71,11 @@ module.exports = {
       template: './src/chat.html',
       publicPath: '/',
     }),
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      filename: 'profile.html',
+      template: './src/profile.html',
+      publicPath: '/',
+    }),
   ],
 };

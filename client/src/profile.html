@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funtalk | Profile</title>
+    <link rel="icon" href="/logo-icon.svg" sizes="any" type="image/svg+xml" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body class="flex flex-col text-lg gap-16 lg:gap-20">
+    <!-- HEADER: LOGO & PROFILE-->
+    <header
+      class="container-x-padding flex justify-between items-center gap-5 py-3"
+    >
+      <!-- LOGO -->
+      <a href="/" class="shrink-0">
+        <img src="/logo.svg" class="h-12" alt="Funtalk Logo" />
+      </a>
+
+      <!-- PROFILE -->
+      <div class="flex gap-3 bg-black text-white p-1 px-2 rounded-full w-44">
+        <a href="/" class="flex gap-2 items-center mr-auto overflow-hidden">
+          <span
+            class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
+            >😎</span
+          >
+          <span class="font-bold text-nowrap">Ahmad</span>
+        </a>
+
+        <button
+          class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
+        >
+          <ion-icon name="log-out-outline"></ion-icon>
+        </button>
+      </div>
+    </header>
+
+    <main
+      class="container-x-padding flex flex-col gap-8 xl:flex-row xl:justify-center xl:text-sm"
+    >
+      <!-- LEFT SECTION: UPDATE EMAIL, NAME AND EMOJI FORM  & DELETE ACCOUNT BUTTON-->
+      <section class="flex flex-col gap-5 xl:w-[25rem]">
+        <form action="" class="bg-white rounded-3xl flex flex-col gap-5 p-5">
+          <h2 class="heading-tertiary text-center xl:text-start">
+            Your account settings
+          </h2>
+
+          <div class="input-group">
+            <span class="input-group-label">Name</span>
+            <input type="text" value="Ahmad" />
+            <span class="input-group-error-message"
+              >Your name should not include any space</span
+            >
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-label">Email</span>
+            <input type="text" value="ahmadmohammadirad2006@gmail.com" />
+            <span class="input-group-error-message">Invalid email</span>
+          </div>
+
+          <div class="flex items-center justify-between gap-5">
+            <div class="select-emoji">
+              <span>Emoji</span>
+              <select name="" id="">
+                <option value="😊">😊</option>
+                <option value="😁">😁</option>
+                <option value="😎" selected>😎</option>
+                <option value="😏">😏</option>
+                <option value="😄">😄</option>
+                <option value="😚">😚</option>
+                <option value="😌">😌</option>
+              </select>
+            </div>
+
+            <button class="btn btn--primary flex-grow">Save changes</button>
+          </div>
+        </form>
+
+        <button class="btn btn--red">Delete your account</button>
+      </section>
+
+      <!-- RIGHT SECTION: CHANGE PASSWORD FORM -->
+      <section class="xl:w-[25rem]">
+        <form action="" class="bg-white rounded-3xl flex flex-col gap-5 p-5">
+          <h2 class="heading-tertiary text-center xl:text-start">
+            Password change
+          </h2>
+
+          <div class="input-group">
+            <span class="input-group-label">Current password</span>
+            <input type="text" />
+            <span class="input-group-error-message"></span>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-label">New Password</span>
+            <input type="text" />
+            <span class="input-group-error-message"></span>
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-label">Confirm Your password</span>
+            <input type="text" />
+            <span class="input-group-error-message"></span>
+          </div>
+
+          <button class="btn btn--primary flex-grow">Save changes</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container-x-padding py-6 gap-5 bg-white mt-auto">
+      <div class="text-center md:text-start">
+        <p>
+          Designed and Developed by
+          <a class="link" href="">Ahmad Mohammadirad</a>
+        </p>
+        <span>© 2024 Funtalk. All Rights Reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>

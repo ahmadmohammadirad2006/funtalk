@@ -52,6 +52,9 @@
   .btn--tertiary {
     @apply border-4 border-black text-black;
   }
+  .btn--red {
+    @apply bg-red text-white;
+  }
 
   /* HEADING COMPONENTS */
   .heading-primary {
@@ -59,6 +62,9 @@
   }
   .heading-secondary {
     @apply text-3xl font-bold xl:text-2xl;
+  }
+  .heading-tertiary {
+    @apply text-2xl font-semibold capitalize xl:text-xl;
   }
 
   /* TEXT LINK */
@@ -74,6 +80,9 @@
 
   .input-group input {
     @apply bg-lightGray px-[1em] py-[.5em] rounded-full  placeholder:text-gray border-2 border-[transparent] outline-none;
+  }
+  .input-group .input-group-label {
+    @apply font-bold capitalize xl:text-sm;
   }
   .input-group .input-group-error-message {
     @apply text-red text-sm font-semibold hidden md:text-xs;
