@@ -1,4 +1,19 @@
 const mongoose = require('mongoose');
+const emojiRegex = require('emoji-regex');
+
+// FUNCTIONS
+
+const isOneEmoji = function (emoji) {
+  const regex = emojiRegex();
+
+  const result = regex.exec(emoji);
+
+  if (result !== null) {
+    return emoji === result[0];
+  } else {
+    return false;
+  }
+};
 
 const roomSchema = new mongoose.Schema({
   name: {
@@ -8,17 +23,25 @@ const roomSchema = new mongoose.Schema({
     minlength: [4, 'Room name must be atleast 4 characters'],
     maxlength: [12, "Room name mustn't be more than 12 characters"],
   },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, 'A room must belong to a user'],
+  description: {
+    type: String,
+    required: [true, 'A room must have a description'],
+    minlength: [30, 'Description must be atleast 30 characters'],
+    maxlength: [90, 'Description must not be more than 90 characters'],
+  },
+  emoji: {
+    type: String,
+    required: [true, 'A room must have a emoji'],
+    validate: {
+      validator: isOneEmoji,
+      message: 'Please provide exactly one emoji',
+    },
   },
   createdAt: {
     type: Date,
     default: Date.now(),
   },
 });
-
 
 const Room = mongoose.model('Room', roomSchema);
 
