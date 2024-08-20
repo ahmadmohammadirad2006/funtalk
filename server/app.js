@@ -8,8 +8,19 @@ const globalErrorHandler = require('./controllers/errorController');
 const roomRouter = require('./routes/roomRouter');
 const userRouter = require('./routes/userRouter');
 const messageRouter = require('./routes/messageRouter');
+const viewRouter = require('./routes/viewRouter');
 
 const app = express();
+
+// Prevent .html files from being served as static files by their name
+app.use((req, res, next) => {
+  if (req.url.endsWith('.html')) {
+    return res
+      .status(404)
+      .sendFile(path.join(__dirname, '../client/dist', 'not-found.html'));
+  }
+  next();
+});
 
 // Body-parser
 app.use(express.json({ limit: '10kb' }));
@@ -21,14 +32,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Routers
+
+// API
 app.use('/api/rooms', roomRouter);
 app.use('/api/users', userRouter);
 app.use('/api/messages', messageRouter);
 
-// Pages
-app.get('/rooms/roomname', (req, res, next) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/dist/room.html'));
-});
+// VIEW
+app.use('/', viewRouter);
 
 // handle undefined routes
 app.all('*', (req, res, next) => {
