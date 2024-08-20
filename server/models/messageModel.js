@@ -4,8 +4,8 @@ const messageSchema = new mongoose.Schema({
   content: {
     type: String,
     required: [true, 'A message must have a content'],
-    minlength: 1,
-    maxlength: 255,
+    minlength: [1, 'A message must be atleast 1 character'],
+    maxlength: [255, 'A message must not be more that 255 characters'],
   },
   room: {
     type: mongoose.Schema.Types.ObjectId,
