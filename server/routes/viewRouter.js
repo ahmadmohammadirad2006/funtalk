@@ -5,6 +5,8 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
+router.use(authController.isLoggedIn);
+
 router.get('/', viewController.getHome);
 router.get('/home', viewController.getHome);
 router.get('/login', viewController.getLogin);
