@@ -227,4 +227,12 @@
   .user-item-you {
     @apply bg-black text-white uppercase text-sm font-bold p-2 rounded-full ml-5 xl:ml-auto xl:text-xs;
   }
+
+  /* ALERT  */
+  .alert {
+    @apply fixed z-50 top-10 left-1/2 -translate-x-1/2 max-w-96 text-center p-5 rounded-3xl bg-white text-black;
+  }
+  .alert--error {
+    @apply bg-red text-white;
+  }
 }

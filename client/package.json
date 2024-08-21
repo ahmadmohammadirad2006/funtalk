@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "webpack --config ./webpack.config.prod.js",
+    "start": "webpack --config ./webpack.config.prod.js",
     "dev": "webpack"
   },
   "devDependencies": {
@@ -22,5 +22,9 @@
     "webpack-cli": "^4.9.2"
   },
   "author": "Ahmad Mohammadirad",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.4",
+    "validator": "^13.12.0"
+  }
 }

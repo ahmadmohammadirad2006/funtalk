@@ -21,32 +21,38 @@
       <form
         action=""
         class="bg-white flex flex-col gap-5 p-5 rounded-3xl md:w-80 md:gap-3 md:p-4"
+        id="signUpForm"
       >
-        <div class="input-group input-group--error">
-          <input type="text" placeholder="Enter your name" />
+        <div class="input-group" id="inpGroupName">
+          <input type="text" placeholder="Enter your name" name="name" />
           <span class="input-group-error-message"
             >Your name must not include any space</span
           >
         </div>
-        <div class="input-group">
-          <input type="text" placeholder="Enter your email" />
+        <div class="input-group" id="inpGroupEmail">
+          <input type="text" placeholder="Enter your email" name="email" />
           <span class="input-group-error-message"></span>
         </div>
-
-        <div class="input-group">
-          <input type="text" placeholder="Create a password" />
+        <div class="input-group" id="inpGroupPassword">
+          <input
+            type="password"
+            placeholder="Create a password"
+            name="password"
+          />
           <span class="input-group-error-message"></span>
         </div>
-
-        <div class="input-group">
-          <input type="text" placeholder="Confirm your password" />
+        <div class="input-group" id="inpGroupPasswordConfirm">
+          <input
+            type="password"
+            placeholder="Confirm your password"
+            name="passwordConfirm"
+          />
           <span class="input-group-error-message"></span>
         </div>
-
         <div class="flex items-center justify-between gap-3">
           <div class="select-emoji">
             <span>Emoji</span>
-            <select name="" id="">
+            <select name="emoji">
               <option value="😊">😊</option>
               <option value="😁">😁</option>
               <option value="😎">😎</option>
@@ -57,7 +63,9 @@
             </select>
           </div>
 
-          <button class="btn btn--primary flex-grow">Sign up 🔥</button>
+          <button class="btn btn--primary flex-grow" type="submit">
+            Sign up 🔥
+          </button>
         </div>
 
         <p class="self-center mt-2">
@@ -76,5 +84,8 @@
         <span>© 2024 Funtalk. All Rights Reserved</span>
       </div>
     </footer>
+
+    <!-- ALLERT -->
+    <div class="alert alert--error hidden" id="alert"></div>
   </body>
 </html>

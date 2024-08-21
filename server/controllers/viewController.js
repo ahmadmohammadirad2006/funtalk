@@ -8,7 +8,7 @@ exports.getHome = function (req, res, next) {
 
 exports.getLogin = function (req, res, next) {
   if (req.user) {
-    res.redirect('/home');
+    return res.redirect('/home');
   }
   res
     .status(200)
@@ -17,7 +17,7 @@ exports.getLogin = function (req, res, next) {
 
 exports.getSignup = function (req, res, next) {
   if (req.user) {
-    res.redirect('/home');
+    return res.redirect('/home');
   }
   res
     .status(200)
