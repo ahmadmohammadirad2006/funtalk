@@ -25,7 +25,7 @@
       </a>
 
       <!-- LOG IN & SIGN UP BUTTONS -->
-      <div>
+      <div id="loginSignUpContainer">
         <div
           class="hidden md:flex flex-col absolute w-full rounded-bl-3xl gap-3 p-5 bg-white transition-all top-0 right-0 z-20 md:flex-row md:static md:bg-[transparent] md:p-0 md:items-center"
         >
@@ -46,18 +46,11 @@
       </div>
 
       <!-- PROFILE -->
-      <div class="hidden gap-3 bg-black text-white p-1 px-2 rounded-full w-44">
-        <a
-          href="/profile"
-          class="flex gap-2 items-center mr-auto overflow-hidden"
-        >
-          <span
-            class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
-            >😎</span
-          >
-          <span class="font-bold text-nowrap">Ahmad</span>
+      <div class="hidden profile-container">
+        <a href="/profile" class="profile-emoji-name-container">
+          <span class="profile-emoji"></span>
+          <span class="profile-name"></span>
         </a>
-
         <button
           class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
         >
@@ -116,5 +109,8 @@
         </div>
       </div>
     </div>
+
+    <!-- ALLERT -->
+    <div class="alert alert--error hidden" id="alert"></div>
   </body>
 </html>

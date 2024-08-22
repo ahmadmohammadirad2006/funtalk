@@ -31,23 +31,6 @@ class SingUpView {
       errorMessageEl.textContent = '';
     });
   }
-
-  showAlert(msg, error = false) {
-    this.hideAlert();
-    const alertEl = document.getElementById('alert');
-    alertEl.textContent = msg;
-    if (error) {
-      alertEl.classList.add('alert--error');
-    }
-    alertEl.classList.remove('hidden');
-  }
-
-  hideAlert() {
-    const alertEl = document.getElementById('alert');
-    alertEl.textContent = '';
-    alertEl.classList.remove('alert--error');
-    alertEl.classList.add('hidden');
-  }
 }
 
 export default new SingUpView();

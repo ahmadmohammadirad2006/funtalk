@@ -1,7 +1,9 @@
 import * as helpers from './helpers';
 import axios from 'axios';
 
-export const state = {};
+export const state = {
+  currentUser: {},
+};
 
 export const signUp = async function (data) {
   // DATA SANITIZATION
@@ -21,4 +23,9 @@ export const signUp = async function (data) {
   });
 
   console.log(res);
+};
+
+export const getCurrentUser = async function () {
+  const res = await axios.get('/api/users/me');
+  state.currentUser = res.data?.data?.doc;
 };

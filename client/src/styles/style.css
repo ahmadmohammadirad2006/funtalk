@@ -235,4 +235,19 @@
   .alert--error {
     @apply bg-red text-white;
   }
+
+  /* PROFILE */
+
+  .profile-container {
+    @apply flex gap-3 bg-black text-white p-1 px-2 rounded-full w-44;
+  }
+  .profile-emoji-name-container {
+    @apply flex gap-2 items-center mr-auto overflow-hidden;
+  }
+  .profile-emoji {
+    @apply flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0;
+  }
+  .profile-name {
+    @apply font-bold text-nowrap;
+  }
 }

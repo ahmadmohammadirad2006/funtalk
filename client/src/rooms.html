@@ -25,18 +25,11 @@
       </a>
 
       <!-- PROFILE -->
-      <div class="flex gap-3 bg-black text-white p-1 px-2 rounded-full w-44">
-        <a
-          href="/profile"
-          class="flex gap-2 items-center mr-auto overflow-hidden"
-        >
-          <span
-            class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
-            >😎</span
-          >
-          <span class="font-bold text-nowrap">Ahmad</span>
+      <div class="profile-container">
+        <a href="/profile" class="profile-emoji-name-container">
+          <span class="profile-emoji"></span>
+          <span class="profile-name"></span>
         </a>
-
         <button
           class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
         >
@@ -66,7 +59,11 @@
             </div>
             <span class="room-card-emoji">🍔</span>
             <span class="room-card-users">109<span>👥</span></span>
-            <a href="/rooms/foodies-unit" class="btn btn--primary room-card-join-btn">join</a>
+            <a
+              href="/rooms/foodies-unit"
+              class="btn btn--primary room-card-join-btn"
+              >join</a
+            >
           </div>
           <div class="room-card">
             <div class="room-card-info">
@@ -149,5 +146,8 @@
         </div>
       </div>
     </div>
+
+    <!-- ALLERT -->
+    <div class="alert alert--error hidden" id="alert"></div>
   </body>
 </html>

@@ -14,31 +14,26 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
   </head>
-  <body class="flex flex-col text-lg gap-16 lg:gap-20">
+  <body class="flex flex-col text-lg xl:gap-20">
     <!-- HEADER: LOGO & PROFILE-->
     <header
-      class="hidden container-x-padding xl:flex justify-between items-center gap-5 py-3"
+      class="flex justify-between items-center gap-5 py-3 px-5 bg-white xl:bg-[transparent] xl:container-x-padding"
     >
       <!-- LOGO -->
-      <a href="/" class="shrink-0">
+      <a href="/" class="shrink-0 hidden xl:block">
         <img src="/logo.svg" class="h-12" alt="Funtalk Logo" />
       </a>
 
       <!-- PROFILE -->
-      <div class="flex gap-3 bg-black text-white p-1 px-2 rounded-full w-44">
-        <a
-          href="/profile"
-          class="flex gap-2 items-center mr-auto overflow-hidden"
-        >
-          <span
-            class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
-            >😎</span
-          >
-          <span class="font-bold text-nowrap">Ahmad</span>
+      <div
+        class="profile-container w-full p-2 text-3xl xl:text-base xl:w-44 xl:px-2 xl:p-1 xl:w-44"
+      >
+        <a href="/profile" class="profile-emoji-name-container gap-2">
+          <span class="profile-emoji w-14 h-14 xl:w-7 xl:h-7"></span>
+          <span class="profile-name"></span>
         </a>
-
         <button
-          class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
+          class="flex items-center justify-center text-4xl xl:text-2xl hover:text-red transition-all p-1"
         >
           <ion-icon name="log-out-outline"></ion-icon>
         </button>
@@ -81,44 +76,23 @@
       <section
         class="bg-white p-5 flex flex-col gap-10 h-screen order-1 xl:order-2 xl:flex-grow xl:bg-[transparent] xl:p-0 xl:h-[35rem] xl:gap-5"
       >
-        <!-- PROFILE & ROOM NAME & LEAVE ROOM BUTTON -->
-        <div class="flex items-center justify-between gap-5">
-          <!-- ROOM NAME & LEAVE ROOM BUTTON -->
-          <div
-            class="bg-lightGray flex items-center rounded-full p-2 flex-grow xl:bg-[transparent] xl:justify-between xl:p-0"
+        <!-- ROOM NAME & LEAVE ROOM BUTTON -->
+        <div
+          class="bg-lightGray flex items-center rounded-full p-2 flex-grow xl:bg-[transparent] xl:justify-between xl:p-0"
+        >
+          <!-- ROOM NAME -->
+          <span
+            class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:text-white"
+            >Teck talk</span
           >
-            <!-- ROOM NAME -->
-            <span
-              class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:text-white"
-              >Teck talk</span
-            >
-            <button
-              class="btn btn--primary px-4 xl:flex xl:gap-5 xl:px-5 xl:text-lg"
-            >
-              <span class="hidden xl:inline-block">Leave room</span>
-              🚪
-            </button>
-          </div>
-
-          <!-- PROFILE -->
-          <div
-            class="flex xl:hidden gap-3 bg-black text-white p-1 px-2 rounded-full w-44"
+          <button
+            class="btn btn--primary px-4 xl:flex xl:gap-5 xl:px-5 xl:text-lg"
           >
-            <a href="/" class="flex gap-2 items-center mr-auto overflow-hidden">
-              <span
-                class="flex items-center justify-center bg-lightGray rounded-full w-7 h-7 shrink-0"
-                >😎</span
-              >
-              <span class="font-bold text-nowrap">Ahmad</span>
-            </a>
-
-            <button
-              class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
-            >
-              <ion-icon name="log-out-outline"></ion-icon>
-            </button>
-          </div>
+            <span class="hidden xl:inline-block">Leave room</span>
+            🚪
+          </button>
         </div>
+
         <!-- MESSAGE AREA -->
         <div
           class="flex flex-col gap-10 flex-grow overflow-y-auto px-2 xl:bg-white xl:p-5 xl:rounded-3xl"
@@ -214,5 +188,8 @@
         </div>
       </div>
     </div>
+
+    <!-- ALLERT -->
+    <div class="alert alert--error hidden" id="alert"></div>
   </body>
 </html>

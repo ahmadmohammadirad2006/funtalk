@@ -1,5 +1,7 @@
 import * as model from './model.js';
+import alertView from './views/alertView.js';
 import signUpView from './views/signUpView.js';
+import profileView from './views/profileView.js';
 
 const controlSignUp = async function (data) {
   try {
@@ -11,18 +13,51 @@ const controlSignUp = async function (data) {
       signUpView.displayInpError(err.data.inputGroup, err.message);
     } else {
       console.error('💥' + err);
-      console.log(err);
-      signUpView.showAlert(err.response.data.message, true);
-      setTimeout(() => {
-        signUpView.hideAlert();
-      }, 2000);
+      alertView.show({
+        msg: err.response.data.message || err.message,
+        error: true,
+        stayForMs: 2000,
+      });
+    }
+  }
+};
+
+const controlProfile = async function () {
+  try {
+    // Get current user data
+    await model.getCurrentUser();
+    // Hide login and signup btns (this only happens in home page)
+    profileView.hideLoginSignUpContainer();
+    // Display profile
+    profileView.show(model.state.currentUser);
+  } catch (err) {
+    if (err.response?.status !== 401) {
+      console.error('💥' + err);
+      alertView.show({
+        msg: err.response.data.message || err.message,
+        error: true,
+        stayForMs: 2000,
+      });
+
+      console.log('hello');
     }
   }
 };
 
 const init = function () {
-  if (window.location.href.endsWith('/signup')) {
+  const currentURL = window.location.href;
+  if (currentURL.endsWith('/signup')) {
     signUpView.addHandlerSignUp(controlSignUp);
+  }
+  if (
+    currentURL.endsWith('/') ||
+    currentURL.endsWith('/home') ||
+    currentURL.endsWith('/profile') ||
+    currentURL.includes('rooms')
+  ) {
+    controlProfile();
+  }
+  if (currentURL.endsWith('/')) {
   }
 };
 init();
