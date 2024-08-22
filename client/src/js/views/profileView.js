@@ -3,6 +3,12 @@ class ProfileView {
   _nameEl = document.querySelector('.profile-name');
   _emojiEl = document.querySelector('.profile-emoji');
 
+  addHandlerLoad(handler) {
+    window.addEventListener('load', function () {
+      handler();
+    });
+  }
+
   show(data) {
     this._parentElement.classList.remove('hidden');
     this._nameEl.textContent = data.name;

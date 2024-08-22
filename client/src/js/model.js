@@ -7,14 +7,8 @@ export const state = {
 
 export const signUp = async function (data) {
   // DATA SANITIZATION
-  const dataSanatized = {
-    name: data.name.trim(),
-    email: data.email.trim(),
-    emoji: data.emoji,
-    password: data.password.trim(),
-    passwordConfirm: data.passwordConfirm.trim(),
-  };
-  helpers.validateSignUpForm(dataSanatized);
+  const dataSanatized = helpers.sanatize(data);
+  helpers.validateForm(dataSanatized, 'signup');
 
   await axios({
     method: 'post',
@@ -25,11 +19,8 @@ export const signUp = async function (data) {
 
 export const logIn = async function (data) {
   // DATA SANITIZATION
-  const dataSanatized = {
-    email: data.email.trim(),
-    password: data.password.trim(),
-  };
-  helpers.validateLogInForm(dataSanatized);
+  const dataSanatized = helpers.sanatize(data);
+  helpers.validateForm(dataSanatized, 'login');
   await axios({
     method: 'post',
     url: '/api/users/login',

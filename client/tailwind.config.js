@@ -15,5 +15,6 @@ module.exports = {
       inter: ['Inter', 'sans-serif'],
     },
   },
+  safelist: ['input-group--error'],
   plugins: [],
 };

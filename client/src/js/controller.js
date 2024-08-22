@@ -67,18 +67,18 @@ const controlProfile = async function () {
 const init = function () {
   const currentURL = window.location.href;
   if (currentURL.endsWith('/signup')) {
-    signUpView.addHandlerSignUp(controlSignUp);
+    signUpView.addHandlerSubmit(controlSignUp);
   }
   if (currentURL.endsWith('/login')) {
-    logInView.addHandlerLogIn(controlLogin);
+    logInView.addHandlerSubmit(controlLogin);
   }
   if (
     currentURL.endsWith('/') ||
     currentURL.endsWith('/home') ||
     currentURL.endsWith('/profile') ||
-    currentURL.includes('rooms')
+    currentURL.includes('/rooms')
   ) {
-    controlProfile();
+    profileView.addHandlerLoad(controlProfile);
   }
 };
 init();
