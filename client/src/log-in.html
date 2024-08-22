@@ -21,19 +21,24 @@
       <form
         action=""
         class="bg-white flex flex-col gap-5 p-5 rounded-3xl md:w-80 md:gap-3 md:p-4"
+        id="logInFrom"
       >
-        <div class="input-group input-group--error">
-          <input type="text" placeholder="Enter your name" />
-          <span class="input-group-error-message"
-            >Your name must not include any space</span
-          >
+        <div class="input-group" id="inpGroupEmail">
+          <input type="text" placeholder="Enter your email" name="email" />
+          <span class="input-group-error-message"></span>
         </div>
-        <div class="input-group input-group--error">
-          <input type="text" placeholder="Enter your email" />
-          <span class="input-group-error-message">Invalid email</span>
+        <div class="input-group" id="inpGroupPassword">
+          <input
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+          />
+          <span class="input-group-error-message"></span>
         </div>
 
-        <button class="btn btn--primary flex-grow">Log in ✨</button>
+        <button class="btn btn--primary flex-grow" type="submit">
+          Log in ✨
+        </button>
 
         <p class="self-center mt-2">
           <a href="/signup" class="link">Don't have an account?</a> Sign Up

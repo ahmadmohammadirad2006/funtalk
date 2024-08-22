@@ -2,6 +2,7 @@ import * as model from './model.js';
 import alertView from './views/alertView.js';
 import signUpView from './views/signUpView.js';
 import profileView from './views/profileView.js';
+import logInView from './views/logInView.js';
 
 const controlSignUp = async function (data) {
   try {
@@ -11,6 +12,25 @@ const controlSignUp = async function (data) {
   } catch (err) {
     if (err.data?.cause === 'Incorrect user input') {
       signUpView.displayInpError(err.data.inputGroup, err.message);
+    } else {
+      console.error('💥' + err);
+      alertView.show({
+        msg: err.response.data.message || err.message,
+        error: true,
+        stayForMs: 2000,
+      });
+    }
+  }
+};
+
+const controlLogin = async function (data) {
+  try {
+    await model.logIn(data);
+    // GO back to home page
+    window.location.assign('/');
+  } catch (err) {
+    if (err.data?.cause === 'Incorrect user input') {
+      logInView.displayInpError(err.data.inputGroup, err.message);
     } else {
       console.error('💥' + err);
       alertView.show({
@@ -49,6 +69,9 @@ const init = function () {
   if (currentURL.endsWith('/signup')) {
     signUpView.addHandlerSignUp(controlSignUp);
   }
+  if (currentURL.endsWith('/login')) {
+    logInView.addHandlerLogIn(controlLogin);
+  }
   if (
     currentURL.endsWith('/') ||
     currentURL.endsWith('/home') ||
@@ -56,8 +79,6 @@ const init = function () {
     currentURL.includes('rooms')
   ) {
     controlProfile();
-  }
-  if (currentURL.endsWith('/')) {
   }
 };
 init();

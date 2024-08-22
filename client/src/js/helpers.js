@@ -83,3 +83,43 @@ export const validateSignUpForm = function (data) {
     );
   }
 };
+
+export const validateLogInForm = function (data) {
+  // EMAIL VALIDATION
+  console.log(!data.email);
+  if (!data.email) {
+    throw new MyError('Email is required', {
+      cause: 'Incorrect user input',
+      inputGroup: 'inpGroupEmail',
+    });
+  }
+  if (!isEmail(data.email)) {
+    throw new MyError('Email is invalid', {
+      cause: 'Incorrect user input',
+      inputGroup: 'inpGroupEmail',
+    });
+  }
+
+  // PASSWORD VALIDATION
+  if (!data.password) {
+    throw new MyError('Password is required', {
+      cause: 'Incorrect user input',
+      inputGroup: 'inpGroupPassword',
+    });
+  }
+  if (data.password.length < 8) {
+    throw new MyError('Password must be atleast 8 charaters', {
+      cause: 'Incorrect user input',
+      inputGroup: 'inpGroupPassword',
+    });
+  }
+  if (!isAscii(data.password)) {
+    throw new MyError(
+      'Password must use only English letters, numbers, and standard symbols.',
+      {
+        cause: 'Incorrect user input',
+        inputGroup: 'inpGroupPassword',
+      }
+    );
+  }
+};

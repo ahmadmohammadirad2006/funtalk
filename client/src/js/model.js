@@ -16,13 +16,25 @@ export const signUp = async function (data) {
   };
   helpers.validateSignUpForm(dataSanatized);
 
-  const res = await axios({
+  await axios({
     method: 'post',
     url: '/api/users/signup',
     data: dataSanatized,
   });
+};
 
-  console.log(res);
+export const logIn = async function (data) {
+  // DATA SANITIZATION
+  const dataSanatized = {
+    email: data.email.trim(),
+    password: data.password.trim(),
+  };
+  helpers.validateLogInForm(dataSanatized);
+  await axios({
+    method: 'post',
+    url: '/api/users/login',
+    data: dataSanatized,
+  });
 };
 
 export const getCurrentUser = async function () {
