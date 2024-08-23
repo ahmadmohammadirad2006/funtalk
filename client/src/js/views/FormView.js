@@ -1,4 +1,6 @@
-export default class FormView {
+import View from './View';
+
+export default class FormView extends View {
   addHandlerSubmit(handler) {
     this._parentElement.addEventListener(
       'submit',

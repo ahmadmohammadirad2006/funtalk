@@ -1,13 +1,9 @@
-class ProfileView {
+import View from './View';
+
+class ProfileView extends View {
   _parentElement = document.querySelector('.profile-container');
   _nameEl = document.querySelector('.profile-name');
   _emojiEl = document.querySelector('.profile-emoji');
-
-  addHandlerLoad(handler) {
-    window.addEventListener('load', function () {
-      handler();
-    });
-  }
 
   show(data) {
     this._parentElement.classList.remove('hidden');

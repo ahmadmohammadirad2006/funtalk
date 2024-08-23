@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const state = {
   currentUser: {},
+  rooms: [],
 };
 
 export const signUp = async function (data) {
@@ -31,4 +32,9 @@ export const logIn = async function (data) {
 export const getCurrentUser = async function () {
   const res = await axios.get('/api/users/me');
   state.currentUser = res.data?.data?.doc;
+};
+
+export const getRooms = async function () {
+  const res = await axios.get('/api/rooms');
+  state.rooms = res.data?.data?.docs;
 };

@@ -1,4 +1,5 @@
-class AlertView {
+import View from './View';
+class AlertView extends View {
   _parentElement = document.getElementById('alert');
 
   show(data) {
@@ -15,7 +16,7 @@ class AlertView {
   }
 
   hide() {
-    this._parentElement.textContent = '';
+    this._clear();
     this._parentElement.classList.remove('alert--error');
     this._parentElement.classList.add('hidden');
   }

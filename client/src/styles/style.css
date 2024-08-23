@@ -123,7 +123,7 @@
 
   /* ROOM CARD */
   .room-card {
-    @apply bg-lightGray rounded-3xl grid grid-cols-2  p-5 gap-5  md:gap-3 xl:grid-cols-3;
+    @apply bg-lightGray rounded-3xl grid grid-cols-2  p-5 gap-5 w-[45%] xl:w-[31%]  md:gap-3 xl:grid-cols-3;
   }
   .room-card-name {
     @apply text-3xl font-bold xl:text-2xl;
@@ -249,5 +249,15 @@
   }
   .profile-name {
     @apply font-bold text-nowrap;
+  }
+
+  /* SPINNER */
+  .spinner {
+    @apply flex  text-4xl animate-spin origin-center w-full justify-center;
+  }
+
+  /* ERROR */
+  .error {
+    @apply flex gap-2 text-red text-xl p-2;
   }
 }

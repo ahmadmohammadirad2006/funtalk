@@ -3,6 +3,7 @@ import alertView from './views/alertView.js';
 import signUpView from './views/signUpView.js';
 import profileView from './views/profileView.js';
 import logInView from './views/logInView.js';
+import roomsView from './views/roomsView.js';
 
 const controlSignUp = async function (data) {
   try {
@@ -58,9 +59,21 @@ const controlProfile = async function () {
         error: true,
         stayForMs: 2000,
       });
-
-      console.log('hello');
     }
+  }
+};
+
+const controlRooms = async function () {
+  try {
+    // Render the spinnner
+    roomsView.renderSpinner();
+    // Get rooms
+    await model.getRooms();
+    // Display rooms
+    roomsView.render(model.state.rooms, true);
+  } catch (err) {
+    console.error('💥' + err);
+    roomsView.renderError(err.response.data.message || err.message);
   }
 };
 
@@ -78,7 +91,11 @@ const init = function () {
     currentURL.endsWith('/profile') ||
     currentURL.includes('/rooms')
   ) {
-    profileView.addHandlerLoad(controlProfile);
+    profileView.addHandlerInit(controlProfile);
+  }
+
+  if (currentURL.endsWith('/rooms')) {
+    roomsView.addHandlerInit(controlRooms);
   }
 };
 init();
