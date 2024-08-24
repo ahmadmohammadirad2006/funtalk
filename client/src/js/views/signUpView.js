@@ -1,7 +1,7 @@
 import FormView from './FormView';
 
 class SingUpView extends FormView {
-  _parentElement = document.getElementById('signUpForm');
+  _parentEl = document.getElementById('signUpForm');
 }
 
 export default new SingUpView();

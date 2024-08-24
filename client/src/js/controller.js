@@ -1,9 +1,12 @@
+const currentURL = window.location.href;
+
 import * as model from './model.js';
 import alertView from './views/alertView.js';
 import signUpView from './views/signUpView.js';
 import profileView from './views/profileView.js';
 import logInView from './views/logInView.js';
 import roomsView from './views/roomsView.js';
+import modalView from './views/modalView.js';
 
 const controlSignUp = async function (data) {
   try {
@@ -43,19 +46,39 @@ const controlLogin = async function (data) {
   }
 };
 
+const controlLogOut = async function () {
+  try {
+    modalView.show('Are you sure you want to logout?');
+
+    modalView.addHandlerClickYes(async function () {
+      await model.logOut();
+
+      // GO back to home page
+      window.location.assign('/');
+    });
+  } catch (err) {
+    console.error('💥' + err);
+    alertView.show({
+      msg: err.response?.data?.message || err.message,
+      error: true,
+      stayForMs: 2000,
+    });
+  }
+};
+
 const controlProfile = async function () {
   try {
     // Get current user data
     await model.getCurrentUser();
     // Hide login and signup btns (this only happens in home page)
-    profileView.hideLoginSignUpContainer();
+    profileView.hideLogInAndSignUpContainer();
     // Display profile
     profileView.show(model.state.currentUser);
   } catch (err) {
     if (err.response?.status !== 401) {
       console.error('💥' + err);
       alertView.show({
-        msg: err.response.data.message || err.message,
+        msg: err.response?.data?.message || err.message,
         error: true,
         stayForMs: 2000,
       });
@@ -91,9 +114,10 @@ const init = function () {
     currentURL.endsWith('/profile') ||
     currentURL.includes('/rooms')
   ) {
+    modalView.init();
     profileView.addHandlerInit(controlProfile);
+    profileView.addHandlerClickLogOut(controlLogOut);
   }
-
   if (currentURL.endsWith('/rooms')) {
     roomsView.addHandlerInit(controlRooms);
   }

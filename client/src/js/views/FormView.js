@@ -1,19 +1,26 @@
 import View from './View';
 
+// FormView CLASS: SOME METHODS CAN BE USED FOR FORMS
 export default class FormView extends View {
+
+  // ADD HANDLER SUBMIT FUNCTION: ON FORM SUBMIT, PREVENT DEFAULT BEHAVIOUR, CLEAR ALL INPUT ERRORs, CALL GIVEN handler WITH THE FORM DATA
+  // handler MUST BE AN FUNCTION THAT GETS THE FORM DATA
   addHandlerSubmit(handler) {
-    this._parentElement.addEventListener(
+    this._parentEl.addEventListener(
       'submit',
       function (e) {
         e.preventDefault();
         this.clearAllInpErrors();
-        const dataArr = [...new FormData(this._parentElement)];
+        const dataArr = [...new FormData(this._parentEl)];
         const data = Object.fromEntries(dataArr);
         handler(data);
       }.bind(this)
     );
   }
 
+  // DISPLAY INP ERROR FUNCTION: ADD input-group--error TO THE ELMENT WITH THE GIVEN inpGroupId ID AND DISPLAY errorMessage IN A ELEMENT WITH input-group-error-message CLASS
+  // inpGroupId MUST BE THE ID OF AN INPUT GROUP
+  // errorMessage MUST BE A STRING 
   displayInpError(inpGroupId, errorMessage) {
     const inpGroupEl = document.getElementById(inpGroupId);
     inpGroupEl.classList.add('input-group--error');
@@ -23,9 +30,10 @@ export default class FormView extends View {
     errorMessageEl.textContent = errorMessage;
   }
 
+  // CLEAR ALL INPUT ERRORs FUNCTION: SELECT ALL INPUT GROUPs IN THE FORM, REMOVE input-group--error CLASS AND CLEAR ERROR MESSAGE FROM THEM 
   clearAllInpErrors() {
-    const inpGroups = this._parentElement.querySelectorAll('.input-group');
-    inpGroups.forEach((el) => {
+    const inpGroupEls = this._parentEl.querySelectorAll('.input-group');
+    inpGroupEls.forEach((el) => {
       el.classList.remove('input-group--error');
       const errorMessageEl = el.querySelector('.input-group-error-message');
       errorMessageEl.textContent = '';

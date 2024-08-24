@@ -30,9 +30,7 @@
           <span class="profile-emoji"></span>
           <span class="profile-name"></span>
         </a>
-        <button
-          class="flex items-center justify-center text-2xl hover:text-red transition-all p-1"
-        >
+        <button class="profile-logout-btn">
           <ion-icon name="log-out-outline"></ion-icon>
         </button>
       </div>
@@ -127,12 +125,17 @@
     <!-- OVERLAY AND YES OR NO MODAL  -->
     <div
       class="hidden bg-[#0000006c] fixed top-0 left-0 w-full items-center justify-center h-full p-5"
+      id="modal"
     >
       <div class="bg-white p-8 flex flex-col gap-8 rounded-3xl text-2xl">
-        <p class="text-center">Are you sure you want log out?</p>
+        <p class="text-center" id="modalMessage"></p>
         <div class="flex gap-5">
-          <button class="btn btn--tertiary flex-grow">No</button>
-          <button class="btn btn--primary flex-grow">Yes</button>
+          <button class="btn btn--tertiary flex-grow" id="modalNoButton">
+            No
+          </button>
+          <button class="btn btn--primary flex-grow" id="modalYesButton">
+            Yes
+          </button>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import View from './View';
 
 class RoomCardView extends View {
+  // GENERATE MARKUP: RETURN THE HTML MARKUP OF A ROOM CARD FILLED WITH DATA FROM this._data
   _generateMarkup() {
     return `
      <div class="room-card">

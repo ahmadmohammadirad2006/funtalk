@@ -1,7 +1,9 @@
 import { isAlpha, isEmail, isAscii } from 'validator';
 import MyError from './utils/myError';
 
-// formType can be either signup or login
+// VALIDATE FORM FUNCTION: GET FROM DATA, AND CHECK ITS PROPERTies BASED ON THE GIVEN FORM TYPE AND IF SOMETHING IS WRONG THROW AN ERROR WITH THE CAUSE OF Incorrect user input AND THE ID OF THE INPUT GROUP
+// data MUST BE AN OBJECT WHICH HAS LOG IN OR SIGN UP FORM PROPERTIES
+// formType CAN BE EITHER signup OR login
 export const validateForm = function (data, formType) {
   if (formType === 'signup') {
     // NAME VALIDATION
@@ -29,7 +31,6 @@ export const validateForm = function (data, formType) {
   }
   if (formType === 'login' || formType === 'signup') {
     // EMAIL VALIDATION
-
     if (!data.email) {
       throw new MyError('Email is required', {
         cause: 'Incorrect user input',
@@ -87,6 +88,8 @@ export const validateForm = function (data, formType) {
   }
 };
 
+// SANATIZE FUNTION: GET AN OBJECT, RUN String.prototype.trim() FUNCTION ON ALL OF ITS VALUEs, RETURN A NEW OBJECT
+// obj MUST BE AN OBJECT THAT ALL OF ITS VALUEs ARE STRINGs
 export const sanatize = function (obj) {
   return Object.fromEntries(
     Object.entries(obj).map((entry) => {
