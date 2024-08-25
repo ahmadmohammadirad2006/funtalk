@@ -145,11 +145,14 @@
   .pagination {
     @apply flex gap-5 text-4xl md:text-2xl;
   }
-  .paginaiton-page-num {
+  .pagination-page-num {
     @apply text-4xl md:text-3xl;
   }
-  .paginaiton-btn {
+  .pagination-btn:not(:disabled) {
     @apply transition-all hover:scale-110;
+  }
+  .pagination-btn:disabled {
+    @apply opacity-70;
   }
 
   /* MESSAGE */

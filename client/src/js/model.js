@@ -1,10 +1,15 @@
 import * as helpers from './helpers';
+import { ROOMS_PER_PAGE } from './config';
 import axios from 'axios';
 
 // STATE OBJECT : USED TO STORE THE STATE OF THE APPLICATION AND CONTROLLER GETS DATA FROM THIS OBJECT
 export const state = {
   currentUser: {},
-  rooms: [],
+  rooms: {
+    page: 1,
+    results: [],
+    resultsPerPage: ROOMS_PER_PAGE,
+  },
 };
 
 // SIGN UP FUNCTION: GET FORM DATA, SANATIZE FORM DATA, VALIDATE FORM DATA, SEND A POST REQUEST TO /api/users/signup WITH THE FORM DATA (name, email, password, password confirm, emoji)
@@ -50,6 +55,12 @@ export const getCurrentUser = async function () {
 // GET ROOMS FUNCTION: SEND A GET REQUEST TO /api/rooms, STORE THE DATA IN THE RESPONSE IN state.rooms
 export const getRooms = async function () {
   const res = await axios.get('/api/rooms');
+  state.rooms.results = res.data?.data?.docs;
+};
 
-  state.rooms = res.data?.data?.docs;
+export const getRoomsPage = function (page = state.rooms.page) {
+  state.rooms.page = page;
+  const start = (page - 1) * state.rooms.resultsPerPage;
+  const end = start + state.rooms.resultsPerPage;
+  return state.rooms.results.slice(start, end);
 };

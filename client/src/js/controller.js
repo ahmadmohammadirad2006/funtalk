@@ -6,6 +6,7 @@ import logInView from './views/logInView.js';
 import roomsView from './views/roomsView.js';
 import modalView from './views/modalView.js';
 import authContainerView from './views/authContainerView.js';
+import paginationView from './views/paginationView.js';
 
 const controlSignUp = async function (data) {
   try {
@@ -17,7 +18,7 @@ const controlSignUp = async function (data) {
       signUpView.displayInpError(err.data.inputGroup, err.message);
     } else {
       console.error('💥' + err);
-      alertView.showError(err.response.data.message || err.message);
+      alertView.showError(err.response?.data?.message || err.message);
     }
   }
 };
@@ -32,7 +33,7 @@ const controlLogin = async function (data) {
       logInView.displayInpError(err.data.inputGroup, err.message);
     } else {
       console.error('💥' + err);
-      alertView.showError(err.response.data.message || err.message);
+      alertView.showError(err.response?.data?.message || err.message);
     }
   }
 };
@@ -46,7 +47,7 @@ const controlLogOut = function () {
       window.location.assign('/');
     } catch (err) {
       console.error('💥' + err);
-      alertView.showError(err.response.data.message || err.message);
+      alertView.showError(err.response?.data?.message || err.message);
     }
   });
 };
@@ -62,7 +63,7 @@ const controlProfile = async function () {
   } catch (err) {
     if (err.response?.status !== 401) {
       console.error('💥' + err);
-      alertView.showError(err.response.data.message || err.message);
+      alertView.showError(err.response?.data?.message || err.message);
     }
   }
 };
@@ -71,14 +72,31 @@ const controlRooms = async function () {
   try {
     // Render the spinnner
     roomsView.renderSpinner();
+
     // Get rooms
     await model.getRooms();
+
+    // Render initial pagination buttons
+    paginationView.render(model.state.rooms);
+
     // Display rooms
-    roomsView.render(model.state.rooms, true);
+    roomsView.render(model.getRoomsPage(), true);
   } catch (err) {
     console.error('💥' + err);
-    roomsView.renderError(err.response.data.message || err.message);
+    roomsView.renderError(err.response?.data?.message || err.message);
   }
+};
+
+const controlPagination = function (goToPage) {
+  if (
+    goToPage < 1 ||
+    Math.ceil(
+      model.state.rooms.results.length / model.state.rooms.resultsPerPage
+    ) < goToPage
+  )
+    return;
+  roomsView.render(model.getRoomsPage(goToPage), true);
+  paginationView.render(model.state.rooms);
 };
 
 const init = function () {
@@ -105,6 +123,7 @@ const init = function () {
   }
   if (currentURL.endsWith('/rooms')) {
     roomsView.addHandlerInit(controlRooms);
+    paginationView.addHandlerClick(controlPagination);
   }
 };
 init();
