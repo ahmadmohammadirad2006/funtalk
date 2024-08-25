@@ -32,6 +32,8 @@ module.exports = {
     'btn--primary',
     'spinner',
     'error',
+    'pagination-btn',
+    'pagination-page-num',
   ],
   plugins: [],
 };

@@ -8,25 +8,13 @@ import modalView from './views/modalView.js';
 import authContainerView from './views/authContainerView.js';
 import paginationView from './views/paginationView.js';
 
-const controlSignUp = async function (data) {
+// CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
+// data MUST BE AN Object
+// formType CAN BE EITHER signup OR login
+const controlForm = async function (data, formType) {
   try {
-    await model.signUp(data);
-    // GO back to home page
-    window.location.assign('/');
-  } catch (err) {
-    if (err.data?.cause === 'Incorrect user input') {
-      signUpView.displayInpError(err.data.inputGroup, err.message);
-    } else {
-      console.error('💥' + err);
-      alertView.showError(err.response?.data?.message || err.message);
-    }
-  }
-};
+    await model.sendFormData(data, formType);
 
-const controlLogin = async function (data) {
-  try {
-    await model.logIn(data);
-    // GO back to home page
     window.location.assign('/');
   } catch (err) {
     if (err.data?.cause === 'Incorrect user input') {
@@ -38,12 +26,13 @@ const controlLogin = async function (data) {
   }
 };
 
+// CONTROL LOG OUT: SHOW MODEL WITH AN APPROPRIATE MESSAGE, ADD A HANDLER TO LOG OUT AND GO TO HOME PAGE WHEN CLICK ON YES BUTTON, IF ERROR USE ALERT
 const controlLogOut = function () {
   modalView.show('Are you sure you want to logout?');
   modalView.addHandlerClickYes(async function () {
     try {
       await model.logOut();
-      // GO back to home page
+
       window.location.assign('/');
     } catch (err) {
       console.error('💥' + err);
@@ -52,13 +41,11 @@ const controlLogOut = function () {
   });
 };
 
+// CONTROL PROFILE: LOAD CURRENT USED DATA, IF SUCCESS HIDE AUTH BUTTONS AND SHOW PROFILE WITH THE DATA, IF ERROR USE ALERT
 const controlProfile = async function () {
   try {
-    // Get current user data
-    await model.getCurrentUser();
-    // Hide login and signup btns (this only happens in home page)
+    await model.loadCurrentUser();
     authContainerView.hide();
-    // Display profile
     profileView.show(model.state.currentUser);
   } catch (err) {
     if (err.response?.status !== 401) {
@@ -68,25 +55,24 @@ const controlProfile = async function () {
   }
 };
 
+// CONTROL ROOMS: RENDER A SPINNER IN ROOMS CONTAINER, LOAD ROOMS DATA, RENDER ROOMS OF FIRST PAGE, RENDER INITIAL PAGINATION BUTTONs, IF ERROR SHOW ERROR IN ROOMS CONTAINER
 const controlRooms = async function () {
   try {
-    // Render the spinnner
     roomsView.renderSpinner();
 
-    // Get rooms
-    await model.getRooms();
+    await model.loadRooms();
 
-    // Render initial pagination buttons
+    roomsView.render(model.getRoomsOfPage(), true);
+
     paginationView.render(model.state.rooms);
-
-    // Display rooms
-    roomsView.render(model.getRoomsPage(), true);
   } catch (err) {
     console.error('💥' + err);
     roomsView.renderError(err.response?.data?.message || err.message);
   }
 };
 
+// CONTROL PAGINATION: CHECK IF goToPage IS NOT OUT OF PAGES RANGE IF SO DO NOTHING, OTHERWISE RENDER ROOMS IN GIVEN goToPage PAGE, UPDATE PAGINATION BUTTONS AND PAGE NUMBER
+// goToPage MUST BE A Number
 const controlPagination = function (goToPage) {
   if (
     goToPage < 1 ||
@@ -95,7 +81,7 @@ const controlPagination = function (goToPage) {
     ) < goToPage
   )
     return;
-  roomsView.render(model.getRoomsPage(goToPage), true);
+  roomsView.render(model.getRoomsOfPage(goToPage), true);
   paginationView.render(model.state.rooms);
 };
 
@@ -104,12 +90,11 @@ const init = function () {
   if (currentURL.endsWith('/') || currentURL.endsWith('/home')) {
     authContainerView.init();
   }
-
   if (currentURL.endsWith('/signup')) {
-    signUpView.addHandlerSubmit(controlSignUp);
+    signUpView.addHandlerSubmit(controlForm);
   }
   if (currentURL.endsWith('/login')) {
-    logInView.addHandlerSubmit(controlLogin);
+    logInView.addHandlerSubmit(controlForm);
   }
   if (
     currentURL.endsWith('/') ||

@@ -12,30 +12,17 @@ export const state = {
   },
 };
 
-// SIGN UP FUNCTION: GET FORM DATA, SANATIZE FORM DATA, VALIDATE FORM DATA, SEND A POST REQUEST TO /api/users/signup WITH THE FORM DATA (name, email, password, password confirm, emoji)
-// data MUST BE AN OBJECT WITH SIGN UP FORM DATA
-export const signUp = async function (data) {
+// SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND A POST REQUEST TO /api/users/${formType} WITH THE FORM DATA 
+// data MUST BE AN Object
+// formType CAN BE EITHER signup OR login
+export const sendFormData = async function (data, formType) {
   const dataSanatized = helpers.sanatize(data);
 
-  helpers.validateForm(dataSanatized, 'signup');
+  helpers.validateForm(dataSanatized, formType);
 
   await axios({
     method: 'post',
-    url: '/api/users/signup',
-    data: dataSanatized,
-  });
-};
-
-// LOG IN FUNCTION: GET FORM DATA, SANATIZE FORM DATA, VALIDATE FORM DATA, SEND A POST REQUEST TO /api/users/login WITH THE FORM DATA (email, password)
-// data MUST BE AN OBJECT WITH LOG IN FORM DATA
-export const logIn = async function (data) {
-  const dataSanatized = helpers.sanatize(data);
-
-  helpers.validateForm(dataSanatized, 'login');
-
-  await axios({
-    method: 'post',
-    url: '/api/users/login',
+    url: `/api/users/${formType}`,
     data: dataSanatized,
   });
 };
@@ -45,20 +32,23 @@ export const logOut = async function () {
   await axios.get('/api/users/logout');
 };
 
-// GET CURRENT USER FUNCTION: SEND A GET REQUEST TO /api/users/me, STORE THE DATA IN THE RESPONSE IN state.currentUser
-export const getCurrentUser = async function () {
+// LOAD CURRENT USER FUNCTION: SEND A GET REQUEST TO /api/users/me, STORE THE DATA IN THE RESPONSE IN state.currentUser
+export const loadCurrentUser = async function () {
   const res = await axios.get('/api/users/me');
 
   state.currentUser = res.data?.data?.doc;
 };
 
-// GET ROOMS FUNCTION: SEND A GET REQUEST TO /api/rooms, STORE THE DATA IN THE RESPONSE IN state.rooms
-export const getRooms = async function () {
+// LOAD ROOMS FUNCTION: SEND A GET REQUEST TO /api/rooms, STORE THE DATA IN THE RESPONSE IN state.rooms
+export const loadRooms = async function () {
   const res = await axios.get('/api/rooms');
+
   state.rooms.results = res.data?.data?.docs;
 };
 
-export const getRoomsPage = function (page = state.rooms.page) {
+// GET ROOMS OF PAGE: RETURN THE ROOMS OF THE GIVE page
+// page MUST BE A Number
+export const getRoomsOfPage = function (page = state.rooms.page) {
   state.rooms.page = page;
   const start = (page - 1) * state.rooms.resultsPerPage;
   const end = start + state.rooms.resultsPerPage;

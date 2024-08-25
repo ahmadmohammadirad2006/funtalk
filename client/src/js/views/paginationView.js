@@ -2,6 +2,9 @@ import View from './View';
 
 class PaginationView extends View {
   _parentEl = document.querySelector('.pagination');
+
+  // ADD HANDLER CLICK: CALL handler WHEN CLICK ON ON OF BUTTONS WITH THE PAGE NUMBER
+  // hanlder MUST BE A Function
   addHandlerClick(handler) {
     this._parentEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.pagination-btn');
@@ -10,9 +13,9 @@ class PaginationView extends View {
     });
   }
 
+  // GENERATE MARKUP: RETURN MARKUP OF PREV AND NEXT BUTTONs AND PAGE NUMBER FILLED WITH this._data
   _generateMarkup() {
     const curPage = this._data.page;
-    console.log(curPage);
     return `  
               <button class="pagination-btn" ${curPage === 1 ? 'disabled' : ''} 
               data-goto="${curPage - 1}"
