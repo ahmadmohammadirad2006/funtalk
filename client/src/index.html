@@ -25,12 +25,14 @@
       </a>
 
       <!-- LOG IN & SIGN UP BUTTONS -->
-      <div id="loginSignUpContainer">
+      <div id="authContainer">
         <div
+        id="authBtnsContainer"
           class="hidden md:flex flex-col absolute w-full rounded-bl-3xl gap-3 p-5 bg-white transition-all top-0 right-0 z-20 md:flex-row md:static md:bg-[transparent] md:p-0 md:items-center"
         >
           <!-- CLOSE BUTTON -->
           <button
+          id="authCloseBtn"
             class="flex text-black self-end text-7xl -mr-5 -mt-5 md:hidden"
           >
             <ion-icon name="close-outline"></ion-icon>
@@ -40,7 +42,7 @@
           >
           <a href="/signup" class="btn btn--primary">sign up</a>
         </div>
-        <button class="flex text-7xl md:hidden">
+        <button class="flex text-7xl md:hidden" id="authMenuBtn">
           <ion-icon name="menu-outline"></ion-icon>
         </button>
       </div>

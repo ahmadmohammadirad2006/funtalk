@@ -4,7 +4,7 @@ import View from './View';
 export default class FormView extends View {
 
   // ADD HANDLER SUBMIT FUNCTION: ON FORM SUBMIT, PREVENT DEFAULT BEHAVIOUR, CLEAR ALL INPUT ERRORs, CALL GIVEN handler WITH THE FORM DATA
-  // handler MUST BE AN FUNCTION THAT GETS THE FORM DATA
+  // handler MUST BE A Function
   addHandlerSubmit(handler) {
     this._parentEl.addEventListener(
       'submit',
@@ -20,7 +20,7 @@ export default class FormView extends View {
 
   // DISPLAY INP ERROR FUNCTION: ADD input-group--error TO THE ELMENT WITH THE GIVEN inpGroupId ID AND DISPLAY errorMessage IN A ELEMENT WITH input-group-error-message CLASS
   // inpGroupId MUST BE THE ID OF AN INPUT GROUP
-  // errorMessage MUST BE A STRING 
+  // errorMessage MUST BE A String 
   displayInpError(inpGroupId, errorMessage) {
     const inpGroupEl = document.getElementById(inpGroupId);
     inpGroupEl.classList.add('input-group--error');

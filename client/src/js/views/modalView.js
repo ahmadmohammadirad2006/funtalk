@@ -13,7 +13,7 @@ class ModalView extends View {
   }
 
   // SHOW FUNCTION: DISPLAY THE GIVEN message, REMOVE hidden CLASS FROM THE MODEL, ADD flex CLASS TO IT
-  // message MUST BE A STRING
+  // message MUST BE A String
   show(message) {
     this._messageEl.textContent = message;
     this._parentEl.classList.remove('hidden');
@@ -21,7 +21,7 @@ class ModalView extends View {
   }
 
   // HIDE FUNCTION: CLEAR THE MESSAGE ELEMEBT, ADD hidden CLASS TO THE MODEL,  REMOVE flex CLASS FROM IT
-  // message MUST BE A STRING
+  // message MUST BE A String
   hide() {
     this._messageEl.textContent = '';
     this._parentEl.classList.add('hidden');
@@ -29,7 +29,7 @@ class ModalView extends View {
   }
 
   // ADD HANDLER CLICK YES: CALL handler ON CLICK ON YES BUTTON
-  // handler MUST BE A FUNCTION
+  // handler MUST BE A Function
   addHandlerClickYes(handler) {
     this._yesBtnEl.addEventListener('click', function () {
       handler();
@@ -37,7 +37,7 @@ class ModalView extends View {
   }
 
   // ADD HANDLER CLICK NO: CALL handler ON CLICK ON NO BUTTON
-  // handler MUST BE A FUNCTION
+  // handler MUST BE A Function
   addHandlerClickNo(handler) {
     this._noBtnEl.addEventListener('click', function () {
       handler();

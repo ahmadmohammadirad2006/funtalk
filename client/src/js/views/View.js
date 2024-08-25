@@ -2,7 +2,7 @@ export default class View {
   _data;
 
   // ADD HANDLER INIT: CALL handler IMMEDIATELY
-  // handler MUST BE A FUNCTION
+  // handler MUST BE A Function
   addHandlerInit(handler) {
     handler();
   }
