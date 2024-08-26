@@ -6,13 +6,14 @@ import axios from 'axios';
 export const state = {
   currentUser: {},
   rooms: {
+    searchResutls: [],
     page: 1,
-    results: [],
+    all: [],
     resultsPerPage: ROOMS_PER_PAGE,
   },
 };
 
-// SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND A POST REQUEST TO /api/users/${formType} WITH THE FORM DATA 
+// SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND A POST REQUEST TO /api/users/${formType} WITH THE FORM DATA
 // data MUST BE AN Object
 // formType CAN BE EITHER signup OR login
 export const sendFormData = async function (data, formType) {
@@ -43,7 +44,7 @@ export const loadCurrentUser = async function () {
 export const loadRooms = async function () {
   const res = await axios.get('/api/rooms');
 
-  state.rooms.results = res.data?.data?.docs;
+  state.rooms.all = state.rooms.searchResutls = res.data?.data?.docs;
 };
 
 // GET ROOMS OF PAGE: RETURN THE ROOMS OF THE GIVE page
@@ -52,5 +53,11 @@ export const getRoomsOfPage = function (page = state.rooms.page) {
   state.rooms.page = page;
   const start = (page - 1) * state.rooms.resultsPerPage;
   const end = start + state.rooms.resultsPerPage;
-  return state.rooms.results.slice(start, end);
+  return state.rooms.searchResutls.slice(start, end);
+};
+
+export const loadSearchResults = function (query) {
+  state.rooms.searchResutls = state.rooms.all.filter((room) =>
+    room.name.toLowerCase().includes(query.toLowerCase())
+  );
 };

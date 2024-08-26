@@ -7,6 +7,7 @@ import roomsView from './views/roomsView.js';
 import modalView from './views/modalView.js';
 import authContainerView from './views/authContainerView.js';
 import paginationView from './views/paginationView.js';
+import searchView from './views/searchView.js';
 
 // CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
 // data MUST BE AN Object
@@ -67,6 +68,8 @@ const controlRooms = async function () {
     paginationView.render(model.state.rooms);
   } catch (err) {
     console.error('💥' + err);
+    paginationView.render(model.state.rooms);
+    console.log('ehllo');
     roomsView.renderError(err.response?.data?.message || err.message);
   }
 };
@@ -77,11 +80,17 @@ const controlPagination = function (goToPage) {
   if (
     goToPage < 1 ||
     Math.ceil(
-      model.state.rooms.results.length / model.state.rooms.resultsPerPage
+      model.state.rooms.searchResutls.length / model.state.rooms.resultsPerPage
     ) < goToPage
   )
     return;
   roomsView.render(model.getRoomsOfPage(goToPage), true);
+  paginationView.render(model.state.rooms);
+};
+
+const controlSearch = function (query) {
+  model.loadSearchResults(query);
+  roomsView.render(model.getRoomsOfPage(1), true);
   paginationView.render(model.state.rooms);
 };
 
@@ -109,6 +118,7 @@ const init = function () {
   if (currentURL.endsWith('/rooms')) {
     roomsView.addHandlerInit(controlRooms);
     paginationView.addHandlerClick(controlPagination);
+    searchView.addHandlerClickSearch(controlSearch);
   }
 };
 init();

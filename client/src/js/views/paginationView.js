@@ -16,6 +16,9 @@ class PaginationView extends View {
   // GENERATE MARKUP: RETURN MARKUP OF PREV AND NEXT BUTTONs AND PAGE NUMBER FILLED WITH this._data
   _generateMarkup() {
     const curPage = this._data.page;
+    const allPagesNum = Math.ceil(
+      this._data.searchResutls.length / this._data.resultsPerPage
+    );
     return `  
               <button class="pagination-btn" ${curPage === 1 ? 'disabled' : ''} 
               data-goto="${curPage - 1}"
@@ -23,10 +26,7 @@ class PaginationView extends View {
               >⏪</button>
           <span class="pagination-page-num">${curPage}</span>
           <button class="pagination-btn"         ${
-            Math.ceil(this._data.results.length / this._data.resultsPerPage) ===
-            curPage
-              ? 'disabled'
-              : ''
+            allPagesNum === curPage || allPagesNum === 0 ? 'disabled' : ''
           } 
           data-goto="${curPage + 1}"
                          >⏩</button>
