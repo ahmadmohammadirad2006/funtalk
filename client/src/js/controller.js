@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import * as helpers from './helpers.js';
 import alertView from './views/alertView.js';
 import signUpView from './views/signUpView.js';
 import profileView from './views/profileView.js';
@@ -8,6 +9,8 @@ import modalView from './views/modalView.js';
 import authContainerView from './views/authContainerView.js';
 import paginationView from './views/paginationView.js';
 import searchView from './views/searchView.js';
+import roomHeaderView from './views/roomHeaderView.js';
+import messageAreaView from './views/messageAreaView.js';
 
 // CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
 // data MUST BE AN Object
@@ -88,37 +91,72 @@ const controlPagination = function (goToPage) {
   paginationView.render(model.state.rooms);
 };
 
+// CONTROL SEARCH FUNCTION: LOAD SEARCH RESULTS BASED ON query RENDER ROOMS IN PAGE 1 AND reRENDER PAGINATION BUTTONS
+// query MUST BE A String
 const controlSearch = function (query) {
   model.loadSearchResults(query);
   roomsView.render(model.getRoomsOfPage(1), true);
   paginationView.render(model.state.rooms);
 };
 
+// CONTROL CHAT FUNCTION: RENDER SPINNER IN MESSAGES AREA, LOAD CURRENT ROOM DATA RENDER ROOM NAME AND MESSAGES IN MESSAGE AREA SCROLL TO THE END OF MESSAGE AREA
+const controlChat = async function () {
+  try {
+    const roomId = helpers.getRoomIdFromURL();
+
+    messageAreaView.renderSpinner();
+
+    await model.loadCurrentRoom(roomId);
+
+    roomHeaderView.showRoomName(model.state.currentRoom.name);
+
+    if (model.state.currentRoom.messages.length === 0)
+      messageAreaView.render(undefined);
+    else
+      messageAreaView.render({
+        messages: model.state.currentRoom.messages,
+        currentUserId: model.state.currentUser._id,
+      });
+
+    messageAreaView.scrollToEnd();
+  } catch (err) {
+    console.error('💥' + err);
+    alertView.showError(err.response?.data?.message || err.message);
+  }
+};
+
 const init = function () {
-  const currentURL = window.location.href;
-  if (currentURL.endsWith('/') || currentURL.endsWith('/home')) {
+  let currentPath = window.location.pathname;
+  if (currentPath !== '/' && currentPath.endsWith('/')) {
+    currentPath = currentPath.slice(0, -1);
+  }
+
+  if (currentPath === '/' || currentPath === '/home') {
     authContainerView.init();
   }
-  if (currentURL.endsWith('/signup')) {
+  if (currentPath === '/signup') {
     signUpView.addHandlerSubmit(controlForm);
   }
-  if (currentURL.endsWith('/login')) {
+  if (currentPath === '/login') {
     logInView.addHandlerSubmit(controlForm);
   }
   if (
-    currentURL.endsWith('/') ||
-    currentURL.endsWith('/home') ||
-    currentURL.endsWith('/profile') ||
-    currentURL.includes('/rooms')
+    currentPath === '/' ||
+    currentPath === '/home' ||
+    currentPath === '/profile' ||
+    currentPath.includes('/rooms')
   ) {
     modalView.init();
     profileView.addHandlerInit(controlProfile);
     profileView.addHandlerClickLogOut(controlLogOut);
   }
-  if (currentURL.endsWith('/rooms')) {
+  if (currentPath === '/rooms') {
     roomsView.addHandlerInit(controlRooms);
     paginationView.addHandlerClick(controlPagination);
     searchView.addHandlerClickSearch(controlSearch);
+  }
+  if (currentPath.includes('/rooms/')) {
+    messageAreaView.addHandlerInit(controlChat);
   }
 };
 init();

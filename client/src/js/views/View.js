@@ -25,9 +25,7 @@ export default class View {
   renderError(message = this._errorMessage) {
     const markup = `
     <div class="error">
-    <span>🙊</span>
-    <p>${message}</p>
- <span>🙊</span>
+   ${message}
   </div>
     `;
     this._clear();

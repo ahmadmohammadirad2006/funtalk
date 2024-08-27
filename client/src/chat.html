@@ -74,15 +74,19 @@
       >
         <!-- ROOM NAME & LEAVE ROOM BUTTON -->
         <div
-          class="bg-lightGray flex items-center rounded-full p-2 flex-grow xl:bg-[transparent] xl:justify-between xl:p-0"
+          class="bg-lightGray flex items-center rounded-full p-2 xl:bg-[transparent] xl:justify-between xl:p-0 relative"
+          id="roomHeader"
         >
           <!-- ROOM NAME -->
           <span
-            class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:text-white"
-            >Teck talk</span
+            class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:max-w-80 xl:text-white"
+            id="roomName"
           >
+            Room Name...
+          </span>
           <button
             class="btn btn--primary px-4 xl:flex xl:gap-5 xl:px-5 xl:text-lg"
+            id="leaveRoomBtn"
           >
             <span class="hidden xl:inline-block">Leave room</span>
             🚪
@@ -92,6 +96,7 @@
         <!-- MESSAGE AREA -->
         <div
           class="flex flex-col gap-10 flex-grow overflow-y-auto px-2 xl:bg-white xl:p-5 xl:rounded-3xl"
+          id="messageArea"
         >
           <div class="message message--left">
             <div class="message-sender-emoji">😎</div>

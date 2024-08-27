@@ -97,3 +97,12 @@ export const sanatize = function (obj) {
     })
   );
 };
+
+// GET ROOM ID FROM URL FUNCTION: RETURN ROOM ID FROM URL
+export const getRoomIdFromURL = function () {
+  let currentPath = window.location.pathname;
+  if (currentPath !== '/' && currentPath.endsWith('/')) {
+    currentPath = currentPath.slice(0, -1);
+  }
+  return currentPath.split('/').at(-1);
+};

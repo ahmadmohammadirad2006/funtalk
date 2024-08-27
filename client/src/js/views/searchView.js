@@ -1,21 +1,23 @@
 import View from './View';
 
 class SearchView extends View {
-  _searchInp = document.getElementById('searchInp');
-  _searchBtn = document.getElementById('searchBtn');
+  _searchInpEl = document.getElementById('searchInp');
+  _searchBtnEl = document.getElementById('searchBtn');
 
+  // ADD HANDLER CLICK SEARCH: CALL handler WHEN USER CLICKS ON SEARCH BUTTON OR CLICK ENTER WHILE FOCUS ON SEARCH INPUT
+  // handler MUST BE A String
   addHandlerClickSearch(handler) {
-    this._searchBtn.addEventListener(
+    this._searchBtnEl.addEventListener(
       'click',
       function () {
-        handler(this._searchInp.value);
+        handler(this._searchInpEl.value);
       }.bind(this)
     );
     document.addEventListener(
       'keydown',
       function (e) {
-        if (e.key === 'Enter' && document.activeElement === this._searchInp) {
-          handler(this._searchInp.value);
+        if (e.key === 'Enter' && document.activeElement === this._searchInpEl) {
+          handler(this._searchInpEl.value);
         }
       }.bind(this)
     );

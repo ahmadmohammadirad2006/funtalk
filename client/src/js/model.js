@@ -11,6 +11,7 @@ export const state = {
     all: [],
     resultsPerPage: ROOMS_PER_PAGE,
   },
+  currentRoom: {},
 };
 
 // SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND A POST REQUEST TO /api/users/${formType} WITH THE FORM DATA
@@ -56,8 +57,17 @@ export const getRoomsOfPage = function (page = state.rooms.page) {
   return state.rooms.searchResutls.slice(start, end);
 };
 
+// LOAD SEARCH RESULTS FUNCTION: FILTER THE state.rooms.all BASED ON THE GIVEN query AND STORE IT IN state.rooms.searchResults
+// query MUST BE A String
 export const loadSearchResults = function (query) {
   state.rooms.searchResutls = state.rooms.all.filter((room) =>
     room.name.toLowerCase().includes(query.toLowerCase())
   );
+};
+
+// LOAD CURRENT ROOM FUNCTION: MAKE A GET REQUEST TO /api/rooms/${roomId} AND STORE THE ROOM DATA IN state.currentRoom
+// roomId MUST BE A String
+export const loadCurrentRoom = async function (roomId) {
+  const res = await axios.get(`/api/rooms/${roomId}`);
+  state.currentRoom = res.data?.data?.doc;
 };
