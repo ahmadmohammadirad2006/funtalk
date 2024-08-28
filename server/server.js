@@ -1,5 +1,6 @@
 const path = require('path');
-
+const { createServer } = require('http');
+const { initSocket } = require('./socket/index');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -26,13 +27,17 @@ mongoose.connect(dbConnStr).then(() => {
   console.log('DB successfully connected');
 });
 
+// create http server
+const httpServer = createServer(app);
+
+// initialize web socket server
+initSocket(httpServer);
+
 // store port in a variable
 const port = process.env.PORT || 8080;
 
-// listen for requests
-const server = app.listen(port, () =>
-  console.log(`Server running on port ${port}...`)
-);
+// listen for requests to http serevr
+httpServer.listen(port);
 
 // handle any unhandled rejection
 process.on('unhandledRejection', (err) => {
