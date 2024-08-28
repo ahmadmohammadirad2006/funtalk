@@ -11,6 +11,7 @@ import paginationView from './views/paginationView.js';
 import searchView from './views/searchView.js';
 import roomHeaderView from './views/roomHeaderView.js';
 import messageAreaView from './views/messageAreaView.js';
+import sendMessageView from './views/sendMessageView.js';
 
 // CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
 // data MUST BE AN Object
@@ -102,21 +103,60 @@ const controlSearch = function (query) {
 // CONTROL CHAT FUNCTION: RENDER SPINNER IN MESSAGES AREA, LOAD CURRENT ROOM DATA RENDER ROOM NAME AND MESSAGES IN MESSAGE AREA SCROLL TO THE END OF MESSAGE AREA
 const controlChat = async function () {
   try {
+    model.makeSocketConnection();
+
     const roomId = helpers.getRoomIdFromURL();
 
     messageAreaView.renderSpinner();
 
     await model.loadCurrentRoom(roomId);
 
-    roomHeaderView.showRoomName(model.state.currentRoom.name);
+    const room = model.state.currentRoom;
 
-    if (model.state.currentRoom.messages.length === 0)
+    model.state.socket.emit('join-room', room._id);
+
+    roomHeaderView.showRoomName(room.name);
+
+    if (room.messages.length === 0) {
       messageAreaView.render(undefined);
-    else
+    } else
       messageAreaView.render({
-        messages: model.state.currentRoom.messages,
+        messages: room.messages,
         currentUserId: model.state.currentUser._id,
       });
+
+    model.state.socket.on('receive-message', (message) => {
+      messageAreaView.renderNewMessage({
+        message,
+        currentUserId: model.state.currentUser._id,
+      });
+      messageAreaView.scrollToEnd();
+    });
+
+    messageAreaView.scrollToEnd();
+  } catch (err) {
+    console.error('💥' + err);
+    alertView.showError(err.response?.data?.message || err.message);
+  }
+};
+
+const controlSendMessage = async function (content) {
+  try {
+    const message = {
+      content,
+      room: model.state.currentRoom,
+      user: model.state.currentUser,
+      createdAt: new Date(Date.now()),
+    };
+
+    await model.sendMessage(message);
+
+    model.state.socket.emit('send-message', message);
+
+    messageAreaView.renderNewMessage({
+      message,
+      currentUserId: model.state.currentUser._id,
+    });
 
     messageAreaView.scrollToEnd();
   } catch (err) {
@@ -157,6 +197,7 @@ const init = function () {
   }
   if (currentPath.includes('/rooms/')) {
     messageAreaView.addHandlerInit(controlChat);
+    sendMessageView.addHandlerClickSend(controlSendMessage);
   }
 };
 init();

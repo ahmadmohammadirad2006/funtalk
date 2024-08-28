@@ -13,6 +13,13 @@ class MessageAreaView extends View {
     });
   }
 
+  renderNewMessage(data) {
+    this._parentEl.insertAdjacentHTML(
+      'beforeend',
+      messageView.render(data, false)
+    );
+  }
+
   // GENERATE MARKUP: RETURN MARKUP OF ALL MESSAGES FILLED WITH this._data.messages
   _generateMarkup() {
     return this._data.messages

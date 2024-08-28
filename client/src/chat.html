@@ -74,12 +74,12 @@
       >
         <!-- ROOM NAME & LEAVE ROOM BUTTON -->
         <div
-          class="bg-lightGray flex items-center rounded-full p-2 xl:bg-[transparent] xl:justify-between xl:p-0 relative"
+          class="bg-lightGray flex items-center overflow-hidden rounded-full p-2 xl:bg-[transparent] xl:justify-between xl:p-0 relative"
           id="roomHeader"
         >
           <!-- ROOM NAME -->
           <span
-            class="mx-auto font-bold text-xl text-nowrap max-w-32 overflow-hidden capitalize xl:mx-0 xl:text-3xl xl:max-w-80 xl:text-white"
+            class="mx-auto font-bold text-xl text-nowrap capitalize xl:mx-0 xl:text-3xl xl:text-white"
             id="roomName"
           >
             Room Name...
@@ -160,8 +160,8 @@
           <div
             class="input-group-clung-button input-group-clung-button--send-message"
           >
-            <input type="text" placeholder="Send your message" />
-            <button class="btn btn--primary">send</button>
+            <input type="text" placeholder="Send your message" id="sendInp" />
+            <button class="btn btn--primary" id="sendBtn">send</button>
           </div>
         </div>
       </section>

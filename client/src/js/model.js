@@ -1,9 +1,11 @@
 import * as helpers from './helpers';
 import { ROOMS_PER_PAGE } from './config';
 import axios from 'axios';
+import { io } from 'socket.io-client';
 
 // STATE OBJECT : USED TO STORE THE STATE OF THE APPLICATION AND CONTROLLER GETS DATA FROM THIS OBJECT
 export const state = {
+  socket: {},
   currentUser: {},
   rooms: {
     searchResutls: [],
@@ -70,4 +72,25 @@ export const loadSearchResults = function (query) {
 export const loadCurrentRoom = async function (roomId) {
   const res = await axios.get(`/api/rooms/${roomId}`);
   state.currentRoom = res.data?.data?.doc;
+};
+
+export const sendMessage = async function (message) {
+  await axios({
+    method: 'post',
+    url: '/api/messages',
+    data: {
+      content: message.content,
+      room: message.room._id,
+    },
+  });
+};
+
+export const makeSocketConnection = function () {
+  state.socket = io({
+    withCredentials: true, // Ensure cookies are sent with the WebSocket connection
+  });
+
+  state.socket.on('connect__error', (err) => {
+    throw err;
+  });
 };
