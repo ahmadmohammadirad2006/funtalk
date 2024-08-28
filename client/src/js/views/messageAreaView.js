@@ -7,10 +7,7 @@ class MessageAreaView extends View {
 
   // SCROLL TO END FUNCTION: GO TO THE LAST MESSAGE OF THE MSSAGE AREA
   scrollToEnd() {
-    this._parentEl.lastElementChild.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
+    this._parentEl.scrollTop = this._parentEl.scrollHeight;
   }
 
   renderNewMessage(data) {

@@ -61,7 +61,7 @@
     @apply text-5xl font-bold;
   }
   .heading-secondary {
-    @apply text-3xl font-bold xl:text-2xl;
+    @apply text-3xl font-bold xl:text-xl;
   }
   .heading-tertiary {
     @apply text-2xl font-semibold capitalize xl:text-xl;
@@ -123,10 +123,10 @@
 
   /* ROOM CARD */
   .room-card {
-    @apply bg-lightGray rounded-3xl grid grid-cols-2  p-5 gap-5 w-full sm:w-[45%] xl:w-[31%]  md:gap-3 xl:grid-cols-3;
+    @apply bg-lightGray rounded-3xl grid grid-cols-2  p-5 gap-5 w-full sm:w-[45%] xl:w-[31%]  md:gap-3 xl:grid-cols-3 overflow-hidden;
   }
   .room-card-name {
-    @apply text-3xl font-bold xl:text-2xl;
+    @apply text-3xl font-bold sm:text-xl  w-full overflow-hidden;
   }
   .room-card-info {
     @apply flex flex-col gap-2 col-span-2;
@@ -219,13 +219,13 @@
 
   /* USER ITEM */
   .user-item {
-    @apply bg-lightGray rounded-full flex items-center gap-2  p-5 xl:p-3;
+    @apply bg-lightGray rounded-full flex items-center gap-2  p-4  xl:p-3 text-xl xl:text-base;
   }
   .user-item-emoji {
-    @apply text-3xl xl:text-2xl;
+    @apply text-2xl xl:text-xl;
   }
   .user-item-name {
-    @apply font-bold text-nowrap text-xl;
+    @apply font-bold text-nowrap;
   }
   .user-item-you {
     @apply bg-black text-white uppercase text-sm font-bold p-2 rounded-full ml-5 xl:ml-auto xl:text-xs;
