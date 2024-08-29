@@ -4,13 +4,19 @@ class MessageView extends View {
   // GENERATE MARKUP FUNCTION: RETURN MARKUP OF A MESSAGE FILLED WITH this._data.message
   _generateMarkup() {
     const { message, currentUserId } = this._data;
-    const isYourMessage = message.user._id === currentUserId ? true : false;
+    const isYourMessage = message.user?._id === currentUserId;
     return `
               <div class="message message--${isYourMessage ? 'right' : 'left'}">
-            <div class="message-sender-emoji">${message.user.emoji}</div>
+            <div class="message-sender-emoji">${
+              message.user?.emoji === undefined ? '🤖' : message.user?.emoji
+            }</div>
             <div class="message-info">
               <span class="message-sender">${
-                isYourMessage ? 'You' : message.user.name
+                isYourMessage
+                  ? 'You'
+                  : message.user?.name === undefined
+                  ? 'Deleted Account'
+                  : message.user?.name
               }:</span>
               <div class="message-body">
            ${message.content}

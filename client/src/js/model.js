@@ -24,6 +24,15 @@ export const sendFormData = async function (data, formType) {
 
   helpers.validateForm(dataSanatized, formType);
 
+  if (formType === 'updateMyPassword') {
+    await axios.patch(`/api/users/updateMyPassword`, data);
+    return;
+  }
+  if (formType === 'updateMe') {
+    await axios.patch(`/api/users/updateMe`, data);
+    return;
+  }
+
   await axios({
     method: 'post',
     url: `/api/users/${formType}`,
@@ -93,4 +102,8 @@ export const makeSocketConnection = function () {
   state.socket.on('connect__error', (err) => {
     throw err;
   });
+};
+
+export const deleteAccount = async function () {
+  await axios.delete('/api/users/deleteMe');
 };

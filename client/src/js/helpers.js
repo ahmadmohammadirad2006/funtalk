@@ -3,9 +3,9 @@ import MyError from './utils/myError';
 
 // VALIDATE FORM FUNCTION: GET FROM DATA, AND CHECK ITS PROPERTies BASED ON THE GIVEN FORM TYPE AND IF SOMETHING IS WRONG THROW AN ERROR WITH THE CAUSE OF Incorrect user input AND THE ID OF THE INPUT GROUP
 // data MUST BE AN OBJECT WHICH HAS LOG IN OR SIGN UP FORM PROPERTIES
-// formType CAN BE EITHER signup OR login
+// formType CAN BE EITHER signup OR login OR updateMe OR updateMyPassword
 export const validateForm = function (data, formType) {
-  if (formType === 'signup') {
+  if (formType === 'signup' || formType === 'updateMe') {
     // NAME VALIDATION
     if (!data.name) {
       throw new MyError('Name is required', {
@@ -29,7 +29,11 @@ export const validateForm = function (data, formType) {
       });
     }
   }
-  if (formType === 'login' || formType === 'signup') {
+  if (
+    formType === 'login' ||
+    formType === 'signup' ||
+    formType === 'updateMe'
+  ) {
     // EMAIL VALIDATION
     if (!data.email) {
       throw new MyError('Email is required', {
@@ -43,7 +47,12 @@ export const validateForm = function (data, formType) {
         inputGroup: 'inpGroupEmail',
       });
     }
-
+  }
+  if (
+    formType === 'login' ||
+    formType === 'signup' ||
+    formType === 'updateMyPassword'
+  ) {
     // PASSWORD VALIDATION
     if (!data.password) {
       throw new MyError('Password is required', {
@@ -67,7 +76,7 @@ export const validateForm = function (data, formType) {
       );
     }
   }
-  if (formType === 'signup') {
+  if (formType === 'signup' || formType === 'updateMyPassword') {
     // PASSWORD CONFIRM VALIDATION
     if (!data.passwordConfirm) {
       // PASSWORD CONFIRM VALIDATION

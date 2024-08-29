@@ -12,10 +12,12 @@ import searchView from './views/searchView.js';
 import roomHeaderView from './views/roomHeaderView.js';
 import messageAreaView from './views/messageAreaView.js';
 import sendMessageView from './views/sendMessageView.js';
+import accountSettingsView from './views/accountSettingsView.js';
+import changePasswordView from './views/changePasswordView.js';
 
 // CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
 // data MUST BE AN Object
-// formType CAN BE EITHER signup OR login
+// formType CAN BE EITHER signup OR login OR updateMe
 const controlForm = async function (data, formType) {
   try {
     await model.sendFormData(data, formType);
@@ -165,6 +167,25 @@ const controlSendMessage = async function (content) {
   }
 };
 
+const controlAccountSettings = async function () {
+  await model.loadCurrentUser();
+  accountSettingsView.setDefaultValues(model.state.currentUser);
+};
+
+const controlDeleteAccount = function () {
+  modalView.show('Are you sure you want to delete your account?');
+  modalView.addHandlerClickYes(async function () {
+    try {
+      await model.deleteAccount();
+
+      window.location.assign('/');
+    } catch (err) {
+      console.error('💥' + err);
+      alertView.showError(err.response?.data?.message || err.message);
+    }
+  });
+};
+
 const init = function () {
   let currentPath = window.location.pathname;
   if (currentPath !== '/' && currentPath.endsWith('/')) {
@@ -198,6 +219,12 @@ const init = function () {
   if (currentPath.includes('/rooms/')) {
     messageAreaView.addHandlerInit(controlChat);
     sendMessageView.addHandlerClickSend(controlSendMessage);
+  }
+  if (currentPath === '/profile') {
+    accountSettingsView.addHandlerInit(controlAccountSettings);
+    accountSettingsView.addHandlerSubmit(controlForm);
+    accountSettingsView.addHandlerClickDeleteAccount(controlDeleteAccount);
+    changePasswordView.addHandlerSubmit(controlForm);
   }
 };
 init();

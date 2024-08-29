@@ -41,32 +41,36 @@
     >
       <!-- LEFT SECTION: UPDATE EMAIL, NAME AND EMOJI FORM  & DELETE ACCOUNT BUTTON-->
       <section class="flex flex-col gap-5 xl:w-[25rem]">
-        <form action="" class="bg-white rounded-3xl flex flex-col gap-5 p-5">
+        <form
+          action=""
+          class="bg-white rounded-3xl flex flex-col gap-5 p-5"
+          id="accountSettingsForm"
+        >
           <h2 class="heading-tertiary text-center xl:text-start">
             Your account settings
           </h2>
 
-          <div class="input-group">
+          <div class="input-group" id="inpGroupName">
             <span class="input-group-label">Name</span>
-            <input type="text" value="Ahmad" />
+            <input type="text" name="name" />
             <span class="input-group-error-message"
               >Your name should not include any space</span
             >
           </div>
 
-          <div class="input-group">
+          <div class="input-group" id="inpGroupEmail">
             <span class="input-group-label">Email</span>
-            <input type="text" value="ahmadmohammadirad2006@gmail.com" />
+            <input type="text" name="email" />
             <span class="input-group-error-message">Invalid email</span>
           </div>
 
           <div class="flex items-center justify-between gap-5">
             <div class="select-emoji">
               <span>Emoji</span>
-              <select name="" id="">
+              <select name="emoji" id="selectEmoij">
                 <option value="😊">😊</option>
                 <option value="😁">😁</option>
-                <option value="😎" selected>😎</option>
+                <option value="😎">😎</option>
                 <option value="😏">😏</option>
                 <option value="😄">😄</option>
                 <option value="😚">😚</option>
@@ -74,35 +78,40 @@
               </select>
             </div>
 
-            <button class="btn btn--primary flex-grow">Save changes</button>
+            <button class="btn btn--primary flex-grow" type="submit">
+              Save changes
+            </button>
           </div>
         </form>
-
-        <button class="btn btn--red">Delete your account</button>
+        <button class="btn btn--red" id="deleteAccountBtn">Delete your account</button>
       </section>
 
       <!-- RIGHT SECTION: CHANGE PASSWORD FORM -->
       <section class="xl:w-[25rem]">
-        <form action="" class="bg-white rounded-3xl flex flex-col gap-5 p-5">
+        <form
+          action=""
+          class="bg-white rounded-3xl flex flex-col gap-5 p-5"
+          id="changePasswordForm"
+        >
           <h2 class="heading-tertiary text-center xl:text-start">
             Password change
           </h2>
 
           <div class="input-group">
             <span class="input-group-label">Current password</span>
-            <input type="text" />
+            <input type="password" name="currentPassword" />
             <span class="input-group-error-message"></span>
           </div>
 
-          <div class="input-group">
+          <div class="input-group" id="inpGroupPassword">
             <span class="input-group-label">New Password</span>
-            <input type="text" />
+            <input type="password" name="password" />
             <span class="input-group-error-message"></span>
           </div>
 
-          <div class="input-group">
+          <div class="input-group" id="inpGroupPasswordConfirm">
             <span class="input-group-label">Confirm Your password</span>
-            <input type="text" />
+            <input type="password" name="passwordConfirm" />
             <span class="input-group-error-message"></span>
           </div>
 
