@@ -5,58 +5,57 @@ import { io } from 'socket.io-client';
 
 // STATE OBJECT : USED TO STORE THE STATE OF THE APPLICATION AND CONTROLLER GETS DATA FROM THIS OBJECT
 export const state = {
-  socket: {},
-  currentUser: {},
+  socket: null,
+  currentUser: null,
   rooms: {
-    searchResutls: [],
+    searchResutls: null,
     page: 1,
-    all: [],
+    all: null,
     resultsPerPage: ROOMS_PER_PAGE,
   },
-  currentRoom: {},
+  currentRoom: null,
 };
 
-// SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND A POST REQUEST TO /api/users/${formType} WITH THE FORM DATA
+// SEND FORM DATA FUNCTION: SANATIZE GIVEN data , VALIDATE IT, SEND REQUEST TO /api/users/${formType} WITH THE FORM DATA, GET USER DATA AND STORE IT IN LOCAL STORAGE
 // data MUST BE AN Object
 // formType CAN BE EITHER signup OR login
 export const sendFormData = async function (data, formType) {
   const dataSanatized = helpers.sanatize(data);
-
   helpers.validateForm(dataSanatized, formType);
-
-  if (formType === 'updateMyPassword') {
-    await axios.patch(`/api/users/updateMyPassword`, data);
-    return;
+  let res;
+  if (formType === 'updateMyPassword' || formType === 'updateMe') {
+    res = await axios.patch(`/api/users/${formType}`, data);
   }
-  if (formType === 'updateMe') {
-    await axios.patch(`/api/users/updateMe`, data);
-    return;
+  if (formType === 'login' || formType === 'signup') {
+    res = await axios({
+      method: 'post',
+      url: `/api/users/${formType}`,
+      data: dataSanatized,
+    });
   }
-
-  await axios({
-    method: 'post',
-    url: `/api/users/${formType}`,
-    data: dataSanatized,
-  });
+  const user = res.data?.data?.user;
+  localStorage.setItem('currentUser', JSON.stringify(user));
 };
 
-// LOG OUT FUNCTION: SEND A GET REQUEST TO /api/users/logout
+// LOG OUT FUNCTION: SEND A DELETE REQUEST to /api/users/logout AND CLEAR currentUser FIELD OF LOCAL STORAGE
 export const logOut = async function () {
   await axios.get('/api/users/logout');
+  localStorage.setItem('currentUser', '');
 };
 
-// LOAD CURRENT USER FUNCTION: SEND A GET REQUEST TO /api/users/me, STORE THE DATA IN THE RESPONSE IN state.currentUser
-export const loadCurrentUser = async function () {
-  const res = await axios.get('/api/users/me');
-
-  state.currentUser = res.data?.data?.doc;
+// LOAD CURRENT USER FROM LOCAL STORAGE FUNCTION: GET CURRENT USER DATA FROM LOCAL STORAGE AND STORE IT IN state.currentUser
+export const loadCurrentUserFromLocalStorage = function () {
+  const storedUser = localStorage.getItem('currentUser');
+  if (!storedUser) return null;
+  state.currentUser = JSON.parse(storedUser);
 };
 
 // LOAD ROOMS FUNCTION: SEND A GET REQUEST TO /api/rooms, STORE THE DATA IN THE RESPONSE IN state.rooms
 export const loadRooms = async function () {
-  const res = await axios.get('/api/rooms');
-
-  state.rooms.all = state.rooms.searchResutls = res.data?.data?.docs;
+  if (!state.rooms.all) {
+    const res = await axios.get('/api/rooms');
+    state.rooms.all = state.rooms.searchResutls = res.data?.data?.docs;
+  }
 };
 
 // GET ROOMS OF PAGE: RETURN THE ROOMS OF THE GIVE page
@@ -79,10 +78,13 @@ export const loadSearchResults = function (query) {
 // LOAD CURRENT ROOM FUNCTION: MAKE A GET REQUEST TO /api/rooms/${roomId} AND STORE THE ROOM DATA IN state.currentRoom
 // roomId MUST BE A String
 export const loadCurrentRoom = async function (roomId) {
+  if (state.currentRoom) return;
   const res = await axios.get(`/api/rooms/${roomId}`);
   state.currentRoom = res.data?.data?.doc;
 };
 
+// SEND MESSAGE FUNCTION: MAKE A POST REQUEST TO /api/messages WITH content AND room PROPERTIES OF GIVEN message
+// message MUST BE AN Object
 export const sendMessage = async function (message) {
   await axios({
     method: 'post',
@@ -94,16 +96,19 @@ export const sendMessage = async function (message) {
   });
 };
 
+// MAKE SOCKET CONNECTION FUNCTION: CALL io MAKE SOCKET CONNECTION TO WEB SOCKET SERVER ON SAME DOMAIN AND LISTEN TO connect__error EVENT AND TRHOW THE ERROR
 export const makeSocketConnection = function () {
+  if (state.socket) return;
   state.socket = io({
     withCredentials: true, // Ensure cookies are sent with the WebSocket connection
   });
-
   state.socket.on('connect__error', (err) => {
     throw err;
   });
 };
 
+// DELETE ACCOUNT FUNCTION: SEND A DELETE REQUEST to /api/users/deleteMe AND CLEAR currentUser FIELD OF LOCAL STORAGE
 export const deleteAccount = async function () {
   await axios.delete('/api/users/deleteMe');
+  localStorage.setItem('currentUser', '');
 };

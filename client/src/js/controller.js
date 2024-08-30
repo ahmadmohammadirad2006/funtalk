@@ -48,18 +48,11 @@ const controlLogOut = function () {
   });
 };
 
-// CONTROL PROFILE: LOAD CURRENT USED DATA, IF SUCCESS HIDE AUTH BUTTONS AND SHOW PROFILE WITH THE DATA, IF ERROR USE ALERT
-const controlProfile = async function () {
-  try {
-    await model.loadCurrentUser();
-    authContainerView.hide();
-    profileView.show(model.state.currentUser);
-  } catch (err) {
-    if (err.response?.status !== 401) {
-      console.error('💥' + err);
-      alertView.showError(err.response?.data?.message || err.message);
-    }
-  }
+// CONTROL PROFILE: LOAD CURRENT USED DATA FROM LOCAL STORAGE IF THERE IS NO DATA RETURN, HIDE AUTH BUTTONS AND SHOW PROFILE WITH THE DATA
+const controlProfile = function () {
+  if (model.loadCurrentUserFromLocalStorage() === null) return;
+  authContainerView.hide();
+  profileView.show(model.state?.currentUser);
 };
 
 // CONTROL ROOMS: RENDER A SPINNER IN ROOMS CONTAINER, LOAD ROOMS DATA, RENDER ROOMS OF FIRST PAGE, RENDER INITIAL PAGINATION BUTTONs, IF ERROR SHOW ERROR IN ROOMS CONTAINER
@@ -142,6 +135,8 @@ const controlChat = async function () {
   }
 };
 
+// CONTROL SEND MESSAGE FUNCTION: CREATE A MESSAGE OBJECT, SEND IT TO MODEL, EMIT send-message EVENT, RENDER NEW MESSAGE , SCROLL TO END OF MESSAGE AREA, IF ERROR USE ALERT
+// content MUST BE A String
 const controlSendMessage = async function (content) {
   try {
     const message = {
@@ -150,16 +145,12 @@ const controlSendMessage = async function (content) {
       user: model.state.currentUser,
       createdAt: new Date(Date.now()),
     };
-
     await model.sendMessage(message);
-
     model.state.socket.emit('send-message', message);
-
     messageAreaView.renderNewMessage({
       message,
       currentUserId: model.state.currentUser._id,
     });
-
     messageAreaView.scrollToEnd();
   } catch (err) {
     console.error('💥' + err);
@@ -167,11 +158,13 @@ const controlSendMessage = async function (content) {
   }
 };
 
-const controlAccountSettings = async function () {
-  await model.loadCurrentUser();
+// CONTROL ACCOUNT SETTINGS FUNCTION: LOAD CURRENT USER DATA AND SET DEFAULT VALUES OF ACCOUNT SETTINGS FORM
+const controlAccountSettings = function () {
+  model.loadCurrentUserFromLocalStorage();
   accountSettingsView.setDefaultValues(model.state.currentUser);
 };
 
+// CONTROL DELETE ACCOUNT FUNCTION: SHOW MODEL WITH AN APPROPRIATE MESSAGE, ADD A HANDLER TO DELETE ACCOUTN AND GO TO HOME PAGE WHEN CLICK ON YES BUTTON, IF ERROR USE ALERT
 const controlDeleteAccount = function () {
   modalView.show('Are you sure you want to delete your account?');
   modalView.addHandlerClickYes(async function () {
@@ -223,8 +216,8 @@ const init = function () {
   if (currentPath === '/profile') {
     accountSettingsView.addHandlerInit(controlAccountSettings);
     accountSettingsView.addHandlerSubmit(controlForm);
-    accountSettingsView.addHandlerClickDeleteAccount(controlDeleteAccount);
     changePasswordView.addHandlerSubmit(controlForm);
+    accountSettingsView.addHandlerClickDeleteAccount(controlDeleteAccount);
   }
 };
 init();

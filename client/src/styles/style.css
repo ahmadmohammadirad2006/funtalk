@@ -8,7 +8,7 @@
     @apply text-[85%] sm:text-[115%] md:text-[125%] xl:text-[140%] 2xl:text-[150%];
   }
   body {
-    @apply bg-primary text-black font-inter text-base font-semibold  min-h-screen overflow-x-hidden;
+    @apply bg-primary text-black font-inter text-base font-semibold  min-h-screen overflow-x-hidden flex flex-col justify-between gap-10;
   }
   input,
   textarea,

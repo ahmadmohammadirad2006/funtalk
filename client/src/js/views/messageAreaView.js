@@ -10,7 +10,9 @@ class MessageAreaView extends View {
     this._parentEl.scrollTop = this._parentEl.scrollHeight;
   }
 
+  // RENDER NEW MESSAGE FUNCTION: PLACE MAKUP OF ONE MESSAGE FILLED WITH GIVEN data, IF .error ELEMENT EXISTS IN this._parentEL THEN REMOVE IT
   renderNewMessage(data) {
+    this._parentEl.querySelector('.error')?.remove();
     this._parentEl.insertAdjacentHTML(
       'beforeend',
       messageView.render(data, false)

@@ -4,6 +4,7 @@ class SendMessageView extends View {
   _sendInpEl = document.getElementById('sendInp');
   _sendBtnEl = document.getElementById('sendBtn');
 
+  // ADD HANDLER CLICK SEND: CALL handler WITH THE VALUE OF this._sendInpEl WHEN CLICK ON _sendBtnEl
   addHandlerClickSend(handler) {
     this._sendBtnEl.addEventListener(
       'click',
@@ -16,6 +17,7 @@ class SendMessageView extends View {
     );
   }
 
+  // CLEAR SEND INPUT FUNCTION
   _clearSendInput() {
     this._sendInpEl.value = '';
   }

@@ -14,7 +14,7 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
   </head>
-  <body class="flex gap-5 flex-col text-lg xl:gap-10">
+  <body>
     <!-- HEADER: LOGO & PROFILE-->
     <header
       class="hidden xl:flex justify-between items-center gap-5 py-3 px-5 bg-white xl:bg-[transparent] xl:container-x-padding"
@@ -84,13 +84,13 @@
           >
             Room Name...
           </span>
-          <button
+          <a
+            href="/rooms"
             class="btn btn--primary px-4 xl:flex xl:gap-5 xl:px-5 xl:text-lg"
-            id="leaveRoomBtn"
           >
             <span class="hidden xl:inline-block">Leave room</span>
             🚪
-          </button>
+          </a>
         </div>
 
         <!-- MESSAGE AREA -->
@@ -168,7 +168,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="container-x-padding py-6 gap-5 bg-white mt-auto text-base">
+    <footer class="container-x-padding py-6 bg-white text-sm">
       <div class="text-center md:text-start">
         <p>
           Designed and Developed by
