@@ -38,6 +38,15 @@ const roomSchema = new mongoose.Schema(
         message: 'Please provide exactly one emoji',
       },
     },
+    currentUsers: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+      ],
+      default: [],
+    },
     createdAt: {
       type: Date,
       default: Date.now,

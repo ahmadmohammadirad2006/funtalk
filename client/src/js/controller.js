@@ -14,6 +14,7 @@ import messageAreaView from './views/messageAreaView.js';
 import sendMessageView from './views/sendMessageView.js';
 import accountSettingsView from './views/accountSettingsView.js';
 import changePasswordView from './views/changePasswordView.js';
+import usersListView from './views/usersListView.js';
 
 // CONTROL FORM: SEND FORM DATA (data) TO MODEL WITH GIVEN formType , IF SUCCESS GO TO HOME PAGE,  IF INPUT ERROR SHOW IT IN INDICATED INPUT, IF GENERAL ERROR USE ALERT
 // data MUST BE AN Object
@@ -68,7 +69,6 @@ const controlRooms = async function () {
   } catch (err) {
     console.error('💥' + err);
     paginationView.render(model.state.rooms);
-    console.log('ehllo');
     roomsView.renderError(err.response?.data?.message || err.message);
   }
 };
@@ -114,17 +114,19 @@ const controlChat = async function () {
 
     if (room.messages.length === 0) {
       messageAreaView.render(undefined);
-    } else
+    } else {
       messageAreaView.render({
         messages: room.messages,
         currentUserId: model.state.currentUser._id,
       });
+    }
 
     model.state.socket.on('receive-message', (message) => {
       messageAreaView.renderNewMessage({
         message,
         currentUserId: model.state.currentUser._id,
       });
+      model.state.currentRoom.messages.push(message);
       messageAreaView.scrollToEnd();
     });
 
@@ -132,6 +134,43 @@ const controlChat = async function () {
   } catch (err) {
     console.error('💥' + err);
     alertView.showError(err.response?.data?.message || err.message);
+  }
+};
+
+const controlUsersList = async function () {
+  try {
+    usersListView.renderSpinner();
+
+    const roomId = helpers.getRoomIdFromURL();
+    await model.loadCurrentRoom(roomId);
+    model.state.currentRoom.currentUsers.unshift(model.state.currentUser);
+    usersListView.render({
+      users: model.state.currentRoom.currentUsers,
+      currentUserId: model.state.currentUser._id,
+    });
+
+    model.state.socket.on('one-joined', (user) => {
+      model.state.currentRoom.currentUsers.push(user);
+      usersListView.render({
+        users: model.state.currentRoom.currentUsers,
+        currentUserId: model.state.currentUser._id,
+      });
+    });
+
+    model.state.socket.on('one-left', (user) => {
+      const currentUsers = model.state.currentRoom.currentUsers;
+      model.state.currentRoom.currentUsers.splice(
+        currentUsers.findIndex((el) => el._id === user._id),
+        1
+      );
+      usersListView.render({
+        users: model.state.currentRoom.currentUsers,
+        currentUserId: model.state.currentUser._id,
+      });
+    });
+  } catch (err) {
+    console.error('💥' + err);
+    usersListView.renderError(err.response?.data?.message || err.message);
   }
 };
 
@@ -211,6 +250,7 @@ const init = function () {
   }
   if (currentPath.includes('/rooms/')) {
     messageAreaView.addHandlerInit(controlChat);
+    usersListView.addHandlerInit(controlUsersList);
     sendMessageView.addHandlerClickSend(controlSendMessage);
   }
   if (currentPath === '/profile') {

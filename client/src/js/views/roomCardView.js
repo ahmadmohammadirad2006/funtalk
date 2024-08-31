@@ -12,7 +12,7 @@ class RoomCardView extends View {
               </p>
             </div>
             <span class="room-card-emoji">${this._data.emoji}</span>
-            <span class="room-card-users">109<span>👥</span></span>
+            <span class="room-card-users">${this._data.currentUsers.length}<span>👥</span></span>
             <a
               href="/rooms/${this._data._id}"
               class="btn btn--primary room-card-join-btn"
