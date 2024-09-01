@@ -100,34 +100,61 @@ const controlChat = async function () {
   try {
     model.makeSocketConnection();
 
-    const roomId = helpers.getRoomIdFromURL();
-
     messageAreaView.renderSpinner();
+
+    const roomId = helpers.getRoomIdFromURL();
 
     await model.loadCurrentRoom(roomId);
 
-    const room = model.state.currentRoom;
+    model.state.socket.emit('join-room', model.state.currentRoom._id);
 
-    model.state.socket.emit('join-room', room._id);
+    roomHeaderView.showRoomName(model.state.currentRoom.name);
 
-    roomHeaderView.showRoomName(room.name);
-
-    if (room.messages.length === 0) {
+    if (model.state.currentRoom.messages.length === 0) {
       messageAreaView.render(undefined);
     } else {
       messageAreaView.render({
-        messages: room.messages,
+        messages: model.state.currentRoom.messages,
         currentUserId: model.state.currentUser._id,
       });
     }
 
+    messageAreaView.scrollToEnd();
+
     model.state.socket.on('receive-message', (message) => {
-      messageAreaView.renderNewMessage({
-        message,
+      model.state.currentRoom.messages.push(message);
+      messageAreaView.render({
+        messages:  model.state.currentRoom.messages,
         currentUserId: model.state.currentUser._id,
       });
-      model.state.currentRoom.messages.push(message);
       messageAreaView.scrollToEnd();
+    });
+  } catch (err) {
+    console.error('💥' + err);
+    alertView.showError(err.response?.data?.message || err.message);
+  }
+};
+
+// CONTROL SEND MESSAGE FUNCTION: CREATE A MESSAGE OBJECT, SEND IT TO MODEL, EMIT send-message EVENT, RENDER NEW MESSAGE , SCROLL TO END OF MESSAGE AREA, IF ERROR USE ALERT
+// content MUST BE A String
+const controlSendMessage = async function (content) {
+  try {
+    const message = {
+      content,
+      room: model.state.currentRoom,
+      user: model.state.currentUser,
+      createdAt: new Date(Date.now()),
+    };
+
+    await model.sendMessage(message);
+
+    model.state.socket.emit('send-message', message);
+
+    model.state.currentRoom.messages.push(message);
+
+    messageAreaView.render({
+      messages: model.state.currentRoom.messages,
+      currentUserId: model.state.currentUser._id,
     });
 
     messageAreaView.scrollToEnd();
@@ -137,6 +164,7 @@ const controlChat = async function () {
   }
 };
 
+// CONTROL USERS LIST FUNCTION: RENDER SPINNRE IN USERS LIST , LOAD CURRENT ROOM, RENDER CURRENT USERS IN THE ROOM WITH CURRENT USER AT FIRST, LISTEN FOR one-joined AND one-left EVENTS
 const controlUsersList = async function () {
   try {
     usersListView.renderSpinner();
@@ -171,29 +199,6 @@ const controlUsersList = async function () {
   } catch (err) {
     console.error('💥' + err);
     usersListView.renderError(err.response?.data?.message || err.message);
-  }
-};
-
-// CONTROL SEND MESSAGE FUNCTION: CREATE A MESSAGE OBJECT, SEND IT TO MODEL, EMIT send-message EVENT, RENDER NEW MESSAGE , SCROLL TO END OF MESSAGE AREA, IF ERROR USE ALERT
-// content MUST BE A String
-const controlSendMessage = async function (content) {
-  try {
-    const message = {
-      content,
-      room: model.state.currentRoom,
-      user: model.state.currentUser,
-      createdAt: new Date(Date.now()),
-    };
-    await model.sendMessage(message);
-    model.state.socket.emit('send-message', message);
-    messageAreaView.renderNewMessage({
-      message,
-      currentUserId: model.state.currentUser._id,
-    });
-    messageAreaView.scrollToEnd();
-  } catch (err) {
-    console.error('💥' + err);
-    alertView.showError(err.response?.data?.message || err.message);
   }
 };
 
