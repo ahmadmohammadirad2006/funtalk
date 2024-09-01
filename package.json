@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "description": "Chat Application",
   "scripts": {
-    "start" : "concurrently \"cd server && npm run start\" \"cd client && npm run start\" ",
+    "start": "concurrently \"cd server && npm run start\" \"cd client && npm run start\" ",
     "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\" "
   },
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahmadmohammadirad2006/fun-talk.git"
+    "url": "git+https://github.com/ahmadmohammadirad2006/funtalk.git"
   },
   "author": "Ahmad Mohammadirad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ahmadmohammadirad2006/fun-talk/issues"
+    "url": "https://github.com/ahmadmohammadirad2006/funtalk/issues"
   },
-  "homepage": "https://github.com/ahmadmohammadirad2006/fun-talk#readme",
+  "homepage": "https://github.com/ahmadmohammadirad2006/funtalk#readme",
   "dependencies": {
     "concurrently": "^8.2.2"
   }
