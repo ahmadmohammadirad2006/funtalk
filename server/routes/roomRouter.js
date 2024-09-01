@@ -10,7 +10,11 @@ router.use(authController.protect);
 router
   .route('/')
   .get(roomController.getAllRooms)
-  .post(roomController.filterBody, roomController.createRoom);
+  .post(
+    authController.restrictTo('admin'),
+    roomController.filterBody,
+    roomController.createRoom
+  );
 router
   .route('/:id')
   .get(roomController.getRoom)

@@ -17,7 +17,7 @@ class PaginationView extends View {
   _generateMarkup() {
     const curPage = this._data.page;
     const allPagesNum = Math.ceil(
-      this._data.searchResutls.length / this._data.resultsPerPage
+      this._data?.searchResutls?.length / this._data.resultsPerPage
     );
     return `  
               <button class="pagination-btn" ${curPage === 1 ? 'disabled' : ''} 

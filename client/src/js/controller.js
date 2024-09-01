@@ -26,7 +26,7 @@ const controlForm = async function (data, formType) {
     window.location.assign('/');
   } catch (err) {
     if (err.data?.cause === 'Incorrect user input') {
-      logInView.displayInpError(err.data.inputGroup, err.message);
+      logInView.displayInpError(err.data?.inputGroup, err.message);
     } else {
       console.error('💥' + err);
       alertView.showError(err.response?.data?.message || err.message);
@@ -68,7 +68,7 @@ const controlRooms = async function () {
     paginationView.render(model.state.rooms);
   } catch (err) {
     console.error('💥' + err);
-    paginationView.render(model.state.rooms);
+    paginationView.render(model.state?.rooms);
     roomsView.renderError(err.response?.data?.message || err.message);
   }
 };
@@ -79,7 +79,8 @@ const controlPagination = function (goToPage) {
   if (
     goToPage < 1 ||
     Math.ceil(
-      model.state.rooms.searchResutls.length / model.state.rooms.resultsPerPage
+      model.state?.rooms?.searchResutls?.length /
+        model.state?.rooms?.resultsPerPage
     ) < goToPage
   )
     return;
@@ -92,7 +93,7 @@ const controlPagination = function (goToPage) {
 const controlSearch = function (query) {
   model.loadSearchResults(query);
   roomsView.render(model.getRoomsOfPage(1), true);
-  paginationView.render(model.state.rooms);
+  paginationView.render(model.state?.rooms);
 };
 
 // CONTROL CHAT FUNCTION: RENDER SPINNER IN MESSAGES AREA, LOAD CURRENT ROOM DATA RENDER ROOM NAME AND MESSAGES IN MESSAGE AREA SCROLL TO THE END OF MESSAGE AREA
@@ -106,16 +107,16 @@ const controlChat = async function () {
 
     await model.loadCurrentRoom(roomId);
 
-    model.state.socket.emit('join-room', model.state.currentRoom._id);
+    model.state.socket.emit('join-room', model.state?.currentRoom?._id);
 
-    roomHeaderView.showRoomName(model.state.currentRoom.name);
+    roomHeaderView.showRoomName(model.state?.currentRoom?.name);
 
-    if (model.state.currentRoom.messages.length === 0) {
+    if (model.state?.currentRoom?.messages?.length === 0) {
       messageAreaView.render(undefined);
     } else {
       messageAreaView.render({
-        messages: model.state.currentRoom.messages,
-        currentUserId: model.state.currentUser._id,
+        messages: model.state?.currentRoom?.messages,
+        currentUserId: model.state?.currentUser?._id,
       });
     }
 
@@ -124,7 +125,7 @@ const controlChat = async function () {
     model.state.socket.on('receive-message', (message) => {
       model.state.currentRoom.messages.push(message);
       messageAreaView.render({
-        messages:  model.state.currentRoom.messages,
+        messages: model.state.currentRoom.messages,
         currentUserId: model.state.currentUser._id,
       });
       messageAreaView.scrollToEnd();
