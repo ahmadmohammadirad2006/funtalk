@@ -45,7 +45,7 @@ To get started with FunTalk, follow these steps:
    ```bash
    npm install
    ```
-3. **Set up environment variables**: Create a .env file in the server folder and add the following variables:
+3. **Set up environment variables**: Create config.env file in the server folder and add the following variables:
 
    ```makefile
    NODE_ENV=development
